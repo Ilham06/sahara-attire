@@ -1,26 +1,141 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fafaf9;
+  --foreground: #0a0a0a;
+  --accent: #d4a574;
+  --accent-dark: #b8935f;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  font-weight: 300;
+  letter-spacing: 0.01em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
+
+/* Premium animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.6s ease-out forwards;
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d4a574;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b8935f;
+}
+
+/* Selection color */
+::selection {
+  background-color: #d4a574;
+  color: #ffffff;
+}
+
+/* Premium button styles */
+.btn-primary {
+  @apply relative overflow-hidden bg-black text-white px-8 py-4 tracking-[0.2em] text-xs uppercase font-light transition-all duration-500;
+}
+
+.btn-primary::before {
+  content: "";
+  @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full;
+  transition: transform 0.6s ease;
+}
+
+.btn-primary:hover::before {
+  @apply translate-x-full;
+}
+
+.btn-secondary {
+  @apply relative border border-black text-black px-8 py-4 tracking-[0.2em] text-xs uppercase font-light transition-all duration-300 hover:bg-black hover:text-white;
+}
+
+/* Premium underline effect */
+.link-underline {
+  @apply relative;
+}
+
+.link-underline::after {
+  content: "";
+  @apply absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-300;
+}
+
+.link-underline:hover::after {
+  @apply w-full;
+}
+
+/* Image reveal effect */
+.image-reveal {
+  @apply overflow-hidden;
+}
+
+.image-reveal img {
+  @apply transition-transform duration-700 ease-out;
+}
+
+.image-reveal:hover img {
+  @apply scale-110;
 }
