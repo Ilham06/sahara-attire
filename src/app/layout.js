@@ -1,4 +1,4 @@
-import { Cormorant_Garamond, Outfit } from "next/font/google";
+import { Cormorant_Garamond, Outfit, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -17,25 +17,20 @@ const outfit = Outfit({
   display: "swap",
 });
 
-export const metadata = {
-  title: {
-    default: BRAND.name,
-    template: `%s | ${BRAND.name}`,
-  },
-  description: BRAND.description,
-  keywords: ["fashion", "minimalist", "desert", "attire", "clothing", "premium", "sustainable"],
-  authors: [{ name: BRAND.name }],
-  openGraph: {
-    title: BRAND.name,
-    description: BRAND.tagline,
-    type: "website",
-  },
-};
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
+});
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="id">
-      <body className={`${cormorant.variable} ${outfit.variable} antialiased`}>
+    <html
+      lang="id"
+      className={`${cormorant.variable} ${outfit.variable} ${playfair.variable}`}
+    >
+      <body className="font-[var(--font-outfit)] antialiased bg-white text-neutral-900">
         <Header />
         <main>{children}</main>
         <Footer />
