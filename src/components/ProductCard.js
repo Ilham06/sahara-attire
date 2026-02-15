@@ -55,7 +55,7 @@ export default function ProductCard({ product }) {
             }`}
           >
             <span className="bg-white text-black px-6 py-3 text-xs tracking-[0.2em] uppercase font-light">
-              View Details
+              Lihat Detail
             </span>
           </div>
 
@@ -63,7 +63,7 @@ export default function ProductCard({ product }) {
           {product.featured && (
             <div className="absolute top-4 right-4 z-10">
               <span className="bg-[#d4a574] text-white px-3 py-1 text-[10px] tracking-[0.2em] uppercase font-light">
-                Featured
+                Unggulan
               </span>
             </div>
           )}
@@ -96,7 +96,7 @@ export default function ProductCard({ product }) {
             <p className="text-sm font-light text-black">${product.price}</p>
             {product.sizes && (
               <p className="text-[10px] text-stone-400 tracking-wider">
-                {product.sizes.length} sizes
+                {product.sizes.length} ukuran
               </p>
             )}
           </div>

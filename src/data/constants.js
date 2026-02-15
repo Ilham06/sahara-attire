@@ -1,7 +1,7 @@
 export const BRAND = {
   name: "Sahara Attire",
-  tagline: "Timeless elegance inspired by the desert",
-  description: "Sahara Attire is a modern fashion house celebrating minimalist design and premium craftsmanship. Our collections are inspired by the vast beauty of desert landscapes, featuring earthy tones and natural fabrics.",
+  tagline: "Elegansi abadi terinspirasi dari gurun pasir",
+  description: "Sahara Attire adalah rumah mode modern yang merayakan desain minimalis dan keahlian premium. Koleksi kami terinspirasi dari keindahan luas lanskap gurun, menampilkan warna-warna alami dan kain berkualitas tinggi.",
   email: "hello@saharaattire.com",
   phone: "+1 (555) 123-4567",
   whatsapp: "+15551234567", // WhatsApp number (without spaces or special chars)
@@ -11,7 +11,7 @@ export const BRAND = {
     city: "New York",
     state: "NY",
     zip: "10016",
-    country: "United States"
+    country: "Amerika Serikat"
   },
   social: {
     instagram: "https://instagram.com/saharaattire",
@@ -21,17 +21,16 @@ export const BRAND = {
     twitter: "https://twitter.com/saharaattire"
   },
   hours: {
-    weekdays: "10:00 AM - 7:00 PM",
-    saturday: "11:00 AM - 6:00 PM",
-    sunday: "12:00 PM - 5:00 PM"
+    weekdays: "10:00 - 19:00",
+    saturday: "11:00 - 18:00",
+    sunday: "12:00 - 17:00"
   }
 };
 
 export const NAVIGATION = [
-  { name: "Home", path: "/" },
-  { name: "About", path: "/about" },
-  { name: "Catalog", path: "/catalog" },
-  { name: "Contact", path: "/contact" }
+  { name: "Beranda", path: "/" },
+  { name: "Tentang", path: "/about" },
+  { name: "Katalog", path: "/catalog" }
 ];
 
 export const REVIEWS = [
@@ -40,7 +39,7 @@ export const REVIEWS = [
     name: "Sarah Mitchell",
     location: "New York, NY",
     rating: 5,
-    text: "Absolutely love the quality and design. The Desert Linen Shirt is now my go-to piece. Worth every penny!",
+    text: "Sangat mencintai kualitas dan desainnya. Desert Linen Shirt sekarang menjadi pilihan favorit saya. Sepadan dengan harganya!",
     avatar: "SM"
   },
   {
@@ -48,7 +47,7 @@ export const REVIEWS = [
     name: "James Carter",
     location: "Los Angeles, CA",
     rating: 5,
-    text: "Exceptional craftsmanship and timeless style. Sahara Attire has become my favorite brand for premium minimalist fashion.",
+    text: "Keahlian pengerjaan yang luar biasa dan gaya yang abadi. Sahara Attire telah menjadi merek favorit saya untuk fashion minimalis premium.",
     avatar: "JC"
   },
   {
@@ -56,7 +55,7 @@ export const REVIEWS = [
     name: "Emma Rodriguez",
     location: "Miami, FL",
     rating: 5,
-    text: "The attention to detail is incredible. Every piece feels luxurious and fits perfectly. Highly recommend!",
+    text: "Perhatian terhadap detail sangat luar biasa. Setiap piece terasa mewah dan pas sempurna. Sangat direkomendasikan!",
     avatar: "ER"
   },
   {
@@ -64,7 +63,7 @@ export const REVIEWS = [
     name: "Michael Chen",
     location: "San Francisco, CA",
     rating: 5,
-    text: "Finally found a brand that combines sustainability with style. The natural fabrics feel amazing and look even better.",
+    text: "Akhirnya menemukan merek yang menggabungkan keberlanjutan dengan gaya. Kain alami terasa luar biasa dan terlihat lebih baik lagi.",
     avatar: "MC"
   }
 ];

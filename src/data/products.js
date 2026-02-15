@@ -1,180 +1,180 @@
 export const products = [
   {
     id: 1,
-    name: "Desert Linen Shirt",
+    name: "Kemeja Linen Gurun",
     slug: "desert-linen-shirt",
-    category: "Shirts",
+    category: "Kemeja",
     price: 129,
-    description: "Crafted from premium European linen, this relaxed-fit shirt embodies effortless elegance. The breathable fabric and earthy tone make it perfect for any occasion.",
+    description: "Dibuat dari linen Eropa premium, kemeja dengan potongan santai ini mewujudkan keanggunan yang mulus. Kain yang dapat bernapas dan warna alami membuatnya sempurna untuk segala acara.",
     images: [
       "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800&q=80",
       "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800&q=80"
     ],
     sizes: ["S", "M", "L", "XL"],
-    colors: ["Sand", "Stone", "Beige"],
+    colors: ["Pasir", "Batu", "Krem"],
     featured: true,
     details: {
-      fabric: "100% European Linen",
-      care: "Machine wash cold, tumble dry low",
-      fit: "Relaxed fit",
-      origin: "Made in Portugal"
+      fabric: "100% Linen Eropa",
+      care: "Cuci mesin air dingin, keringkan dengan suhu rendah",
+      fit: "Potongan santai",
+      origin: "Dibuat di Portugal"
     }
   },
   {
     id: 2,
-    name: "Dunes Wide-Leg Trousers",
+    name: "Celana Panjang Kaki Lebar Dunes",
     slug: "dunes-wide-leg-trousers",
-    category: "Bottoms",
+    category: "Bawahan",
     price: 165,
-    description: "Flowing wide-leg trousers that blend comfort with sophistication. Cut from premium cotton blend with a high-rise waist and elegant drape.",
+    description: "Celana kaki lebar yang mengalir, memadukan kenyamanan dengan kecanggihan. Dipotong dari campuran katun premium dengan pinggang tinggi dan jatuhan yang elegan.",
     images: [
       "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=800&q=80",
       "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=800&q=80"
     ],
     sizes: ["XS", "S", "M", "L", "XL"],
-    colors: ["Cream", "Taupe", "Olive"],
+    colors: ["Krem", "Coklat Muda", "Hijau Zaitun"],
     featured: true,
     details: {
-      fabric: "68% Cotton, 30% Lyocell, 2% Elastane",
-      care: "Dry clean recommended",
-      fit: "High-rise, wide leg",
-      origin: "Made in Italy"
+      fabric: "68% Katun, 30% Lyocell, 2% Elastane",
+      care: "Disarankan dry clean",
+      fit: "Pinggang tinggi, kaki lebar",
+      origin: "Dibuat di Italia"
     }
   },
   {
     id: 3,
-    name: "Oasis Cotton Dress",
+    name: "Dress Katun Oasis",
     slug: "oasis-cotton-dress",
-    category: "Dresses",
+    category: "Dress",
     price: 189,
-    description: "A timeless midi dress in organic cotton with subtle pleating and a flattering silhouette. Perfect for warm days and elegant evenings.",
+    description: "Dress midi abadi dari katun organik dengan lipatan halus dan siluet yang memukau. Sempurna untuk hari yang hangat dan malam yang elegan.",
     images: [
       "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=800&q=80",
       "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=800&q=80"
     ],
     sizes: ["XS", "S", "M", "L"],
-    colors: ["Natural", "Sand", "Terracotta"],
+    colors: ["Natural", "Pasir", "Terracotta"],
     featured: true,
     details: {
-      fabric: "100% Organic Cotton",
-      care: "Hand wash cold, line dry",
-      fit: "Relaxed fit, midi length",
-      origin: "Made in France"
+      fabric: "100% Katun Organik",
+      care: "Cuci tangan air dingin, keringkan dengan digantung",
+      fit: "Potongan santai, panjang midi",
+      origin: "Dibuat di Prancis"
     }
   },
   {
     id: 4,
-    name: "Nomad Linen Blazer",
+    name: "Blazer Linen Nomad",
     slug: "nomad-linen-blazer",
-    category: "Outerwear",
+    category: "Jaket",
     price: 245,
-    description: "Structured yet breathable, this linen blazer is tailored for the modern minimalist. Features natural buttons and unlined construction.",
+    description: "Terstruktur namun dapat bernapas, blazer linen ini dirancang untuk minimalis modern. Dilengkapi dengan kancing alami dan konstruksi tanpa lapisan.",
     images: [
       "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&q=80",
       "https://images.unsplash.com/photo-1507680434567-5739c80be1ac?w=800&q=80"
     ],
     sizes: ["XS", "S", "M", "L", "XL"],
-    colors: ["Camel", "Stone", "Sage"],
+    colors: ["Camel", "Batu", "Hijau Sage"],
     featured: false,
     details: {
-      fabric: "100% Italian Linen",
-      care: "Dry clean only",
-      fit: "Tailored fit",
-      origin: "Made in Italy"
+      fabric: "100% Linen Italia",
+      care: "Dry clean saja",
+      fit: "Potongan pas badan",
+      origin: "Dibuat di Italia"
     }
   },
   {
     id: 5,
-    name: "Sahara Knit Sweater",
+    name: "Sweater Rajut Sahara",
     slug: "sahara-knit-sweater",
-    category: "Knitwear",
+    category: "Rajutan",
     price: 155,
-    description: "Soft merino wool sweater with a relaxed crew neck. Lightweight yet warm, perfect for layering or wearing alone.",
+    description: "Sweater wol merino lembut dengan leher crew yang santai. Ringan namun hangat, sempurna untuk layering atau dipakai sendiri.",
     images: [
       "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=800&q=80",
       "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=800&q=80"
     ],
     sizes: ["S", "M", "L", "XL"],
-    colors: ["Oatmeal", "Camel", "Charcoal"],
+    colors: ["Oatmeal", "Camel", "Abu-abu Tua"],
     featured: false,
     details: {
-      fabric: "100% Merino Wool",
-      care: "Hand wash cold, lay flat to dry",
-      fit: "Relaxed fit",
-      origin: "Made in Scotland"
+      fabric: "100% Wol Merino",
+      care: "Cuci tangan air dingin, keringkan mendatar",
+      fit: "Potongan santai",
+      origin: "Dibuat di Skotlandia"
     }
   },
   {
     id: 6,
-    name: "Horizon Silk Blouse",
+    name: "Blouse Sutra Horizon",
     slug: "horizon-silk-blouse",
-    category: "Shirts",
+    category: "Kemeja",
     price: 195,
-    description: "Luxurious silk blouse with subtle sheen and elegant drape. Features mother-of-pearl buttons and French seams.",
+    description: "Blouse sutra mewah dengan kilau halus dan jatuhan yang elegan. Dilengkapi kancing mutiara dan jahitan Prancis.",
     images: [
       "https://images.unsplash.com/photo-1618932260643-eee4a2f652a6?w=800&q=80",
       "https://images.unsplash.com/photo-1578932750294-f5075e85f44a?w=800&q=80"
     ],
     sizes: ["XS", "S", "M", "L"],
-    colors: ["Ivory", "Champagne", "Taupe"],
+    colors: ["Gading", "Champagne", "Coklat Muda"],
     featured: true,
     details: {
-      fabric: "100% Mulberry Silk",
-      care: "Dry clean only",
-      fit: "Relaxed fit",
-      origin: "Made in France"
+      fabric: "100% Sutra Mulberry",
+      care: "Dry clean saja",
+      fit: "Potongan santai",
+      origin: "Dibuat di Prancis"
     }
   },
   {
     id: 7,
-    name: "Terra Cotta Midi Skirt",
+    name: "Rok Midi Terra Cotta",
     slug: "terra-cotta-midi-skirt",
-    category: "Bottoms",
+    category: "Bawahan",
     price: 139,
-    description: "A-line midi skirt in premium cotton with invisible side zip. The perfect versatile piece for any wardrobe.",
+    description: "Rok midi A-line dari katun premium dengan ritsleting samping tersembunyi. Potongan serbaguna yang sempurna untuk lemari pakaian apa pun.",
     images: [
       "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=800&q=80",
       "https://images.unsplash.com/photo-1570913149827-d2ac84ab3f9a?w=800&q=80"
     ],
     sizes: ["XS", "S", "M", "L", "XL"],
-    colors: ["Terracotta", "Sand", "Black"],
+    colors: ["Terracotta", "Pasir", "Hitam"],
     featured: false,
     details: {
-      fabric: "97% Cotton, 3% Elastane",
-      care: "Machine wash cold, hang to dry",
-      fit: "Mid-rise, A-line",
-      origin: "Made in Portugal"
+      fabric: "97% Katun, 3% Elastane",
+      care: "Cuci mesin air dingin, keringkan dengan digantung",
+      fit: "Pinggang sedang, A-line",
+      origin: "Dibuat di Portugal"
     }
   },
   {
     id: 8,
-    name: "Mirage Cashmere Wrap",
+    name: "Selendang Cashmere Mirage",
     slug: "mirage-cashmere-wrap",
-    category: "Accessories",
+    category: "Aksesori",
     price: 215,
-    description: "Ultra-soft cashmere wrap that doubles as a scarf or shawl. Lightweight and luxuriously warm.",
+    description: "Selendang cashmere ultra lembut yang dapat digunakan sebagai syal atau shawl. Ringan dan hangat yang mewah.",
     images: [
       "https://images.unsplash.com/photo-1520903920243-00d872a2d1c9?w=800&q=80",
       "https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=800&q=80"
     ],
-    sizes: ["One Size"],
-    colors: ["Camel", "Cream", "Charcoal"],
+    sizes: ["Satu Ukuran"],
+    colors: ["Camel", "Krem", "Abu-abu Tua"],
     featured: false,
     details: {
       fabric: "100% Cashmere",
-      care: "Dry clean only",
+      care: "Dry clean saja",
       fit: "170cm x 70cm",
-      origin: "Made in Scotland"
+      origin: "Dibuat di Skotlandia"
     }
   }
 ];
 
 export const categories = [
-  { name: "All", slug: "all" },
-  { name: "Shirts", slug: "shirts" },
-  { name: "Bottoms", slug: "bottoms" },
-  { name: "Dresses", slug: "dresses" },
-  { name: "Outerwear", slug: "outerwear" },
-  { name: "Knitwear", slug: "knitwear" },
-  { name: "Accessories", slug: "accessories" }
+  { name: "Semua", slug: "all" },
+  { name: "Kemeja", slug: "shirts" },
+  { name: "Bawahan", slug: "bottoms" },
+  { name: "Dress", slug: "dresses" },
+  { name: "Jaket", slug: "outerwear" },
+  { name: "Rajutan", slug: "knitwear" },
+  { name: "Aksesori", slug: "accessories" }
 ];
