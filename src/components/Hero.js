@@ -22,8 +22,8 @@ export default function Hero() {
         style={{ transform: `translateY(${scrollY * 0.15}px)` }}
       >
         <Image
-          src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1600&q=90"
-          alt="Editorial Sahara Attire"
+          src="https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?w=1600&q=90"
+          alt="Sahara Attire Bridal Collection"
           fill
           priority
           quality={95}
@@ -39,47 +39,39 @@ export default function Hero() {
 
           {/* Micro Label */}
           <p className="text-[10px] tracking-[0.6em] uppercase text-white/60 mb-16">
-            Koleksi 2026 — Rumah Mode Sahara
+            Bridal Collection 2026 — Sahara Attire
           </p>
 
-          {/* Brand Name with Playfair */}
+          {/* Brand Name */}
           <h1 className="leading-[0.85] text-white">
 
             <span className="block text-6xl md:text-[6rem] lg:text-[7rem] font-display font-medium tracking-tight">
               Sahara
             </span>
 
-            <span className="block text-6xl md:text-[6rem] lg:text-[7rem] font-display italic font-medium tracking-tight -mt-4 text-[#C6A66A]">
+            <span className="block text-6xl md:text-[6rem] lg:text-[7rem] font-display italic font-medium tracking-tight -mt-4 text-[#A26769]">
               Attire
             </span>
 
           </h1>
 
-          {/* Gold Accent Line */}
-          <div className="w-32 h-px bg-gradient-to-r from-[#C6A66A] to-transparent mt-14 mb-14" />
+          {/* Brand Accent Line */}
+          <div className="w-32 h-px bg-gradient-to-r from-[#A26769] to-transparent mt-14 mb-14" />
 
           {/* Statement */}
           <p className="text-white/75 text-lg md:text-xl font-light max-w-xl leading-relaxed">
-            Keanggunan modern yang terinspirasi dari nuansa gurun —
-            dirancang dengan siluet minimal,
-            warna hangat yang tenang,
-            dan detail yang abadi.
+            Busana pernikahan yang dirancang untuk momen paling sakral dalam hidup —
+            memadukan siluet anggun, material premium,
+            dan detail yang tak lekang oleh waktu.
           </p>
 
           {/* CTA */}
           <div className="mt-16 flex gap-6 flex-wrap">
             <Link
               href="/catalog"
-              className="px-12 py-4 bg-[#C6A66A] text-black uppercase tracking-[0.25em] text-xs transition-all duration-300 hover:bg-white"
+              className="px-12 py-4 bg-[#A26769] text-white uppercase tracking-[0.25em] text-xs transition-all duration-300 hover:bg-[#8E5759]"
             >
               Lihat Koleksi
-            </Link>
-
-            <Link
-              href="/about"
-              className="px-12 py-4 border border-white/40 text-white uppercase tracking-[0.25em] text-xs transition-all duration-300 hover:border-white hover:bg-white hover:text-black"
-            >
-              Tentang Kami
             </Link>
           </div>
 
@@ -88,7 +80,7 @@ export default function Hero() {
 
       {/* Giant Background Text */}
       <div className="absolute bottom-0 right-0 pointer-events-none">
-        <span className="text-white/[0.03] text-[18vw] font-[var(--font-playfair)] font-semibold tracking-tight select-none">
+        <span className="text-white/[0.03] text-[18vw] font-display font-semibold tracking-tight select-none">
           SAHARA
         </span>
       </div>

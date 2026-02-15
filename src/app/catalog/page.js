@@ -17,49 +17,69 @@ export default function Catalog() {
 
   return (
     <div className="pt-24 md:pt-32">
-      {/* Header */}
+
+      {/* HEADER */}
       <Section>
-        <div className="max-w-4xl mx-auto text-center space-y-6 mb-12">
-          <h1 className="text-4xl md:text-6xl font-light tracking-wide text-stone-900">
-            Catalog
+        <div className="max-w-4xl mx-auto text-center space-y-6 mb-16">
+          <h1 className="text-5xl md:text-6xl font-display font-medium text-black">
+            Koleksi
           </h1>
-          <p className="text-xl text-stone-600 leading-relaxed">
-            Explore our complete collection of timeless, minimalist pieces
-            crafted from premium natural fabrics.
+
+          <div className="w-20 h-px bg-[#A26769] mx-auto" />
+
+          <p className="text-stone-600 font-light max-w-2xl mx-auto">
+            Temukan pilihan gaun pernikahan untuk pembelian
+            dan penyewaan yang dirancang dengan siluet modern
+            dan sentuhan elegan.
           </p>
         </div>
 
-        {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
+        {/* CATEGORY FILTER */}
+        <div className="flex flex-wrap justify-center gap-8 mb-20">
+
           {categories.map((category) => (
             <button
               key={category.slug}
               onClick={() => setSelectedCategory(category.slug)}
-              className={`px-6 py-2 border transition-colors tracking-wider text-sm uppercase ${
+              className={`relative text-sm uppercase tracking-[0.3em] font-light transition-all duration-300 ${
                 selectedCategory === category.slug
-                  ? "bg-stone-900 text-white border-stone-900"
-                  : "border-stone-300 text-stone-600 hover:border-stone-900 hover:text-stone-900"
+                  ? "text-black"
+                  : "text-stone-400 hover:text-black"
               }`}
             >
               {category.name}
+
+              {/* Underline indicator */}
+              <span
+                className={`absolute -bottom-2 left-0 h-px bg-[#A26769] transition-all duration-300 ${
+                  selectedCategory === category.slug
+                    ? "w-full"
+                    : "w-0 group-hover:w-full"
+                }`}
+              />
             </button>
           ))}
+
         </div>
 
-        {/* Product Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+        {/* PRODUCT GRID */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-20">
+
           {filteredProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
+
         </div>
 
+        {/* EMPTY STATE */}
         {filteredProducts.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-stone-500 text-lg">
-              No products found in this category.
+          <div className="text-center py-20">
+            <p className="text-stone-500 font-light">
+              Belum ada koleksi pada kategori ini.
             </p>
           </div>
         )}
+
       </Section>
     </div>
   );

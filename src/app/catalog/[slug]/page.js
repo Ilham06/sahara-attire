@@ -12,24 +12,14 @@ import { BRAND } from "@/data/constants";
 export default function ProductDetail() {
   const params = useParams();
   const product = products.find((p) => p.slug === params.slug);
+
   const [selectedImage, setSelectedImage] = useState(0);
-  const [selectedSize, setSelectedSize] = useState("");
-  const [selectedColor, setSelectedColor] = useState("");
+  const [previewOpen, setPreviewOpen] = useState(false);
 
   if (!product) {
     return (
       <div className="pt-24 md:pt-32 min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-3xl font-light text-stone-900 mb-4">
-            Produk Tidak Ditemukan
-          </h1>
-          <Link
-            href="/catalog"
-            className="text-stone-600 hover:text-stone-900 underline underline-offset-4"
-          >
-            Kembali ke Katalog
-          </Link>
-        </div>
+        <h1 className="text-2xl font-display">Produk Tidak Ditemukan</h1>
       </div>
     );
   }
@@ -40,52 +30,52 @@ export default function ProductDetail() {
 
   return (
     <div className="pt-24 md:pt-32">
+
       <Section>
+
         {/* Breadcrumb */}
-        <div className="mb-8 text-sm text-stone-500">
-          <Link href="/" className="hover:text-stone-900">
-            Beranda
-          </Link>
+        <div className="mb-12 text-sm text-stone-400">
+          <Link href="/" className="hover:text-black">Beranda</Link>
           <span className="mx-2">/</span>
-          <Link href="/catalog" className="hover:text-stone-900">
-            Katalog
-          </Link>
+          <Link href="/catalog" className="hover:text-black">Koleksi</Link>
           <span className="mx-2">/</span>
-          <span className="text-stone-900">{product.name}</span>
+          <span className="text-black">{product.name}</span>
         </div>
 
-        {/* Product Details */}
-        <div className="grid md:grid-cols-2 gap-8 md:gap-16">
-          {/* Images */}
-          <div className="space-y-4">
-            <div className="aspect-[3/4] relative overflow-hidden bg-stone-100">
+        <div className="grid md:grid-cols-2 gap-16 items-start">
+
+          {/* LEFT – Smaller Gallery */}
+          <div className="space-y-6">
+
+            <div
+              className="aspect-[3/4] relative overflow-hidden bg-stone-100 cursor-zoom-in"
+              onClick={() => setPreviewOpen(true)}
+            >
               <Image
                 src={product.images[selectedImage]}
                 alt={product.name}
                 fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
-                priority
+                className="object-cover transition-transform duration-500 hover:scale-105"
               />
             </div>
+
             {product.images.length > 1 && (
-              <div className="grid grid-cols-4 gap-4">
+              <div className="flex gap-4">
                 {product.images.map((image, index) => (
                   <button
                     key={index}
                     onClick={() => setSelectedImage(index)}
-                    className={`aspect-square relative overflow-hidden bg-stone-100 border-2 transition-colors ${
+                    className={`w-16 h-20 relative overflow-hidden transition-all ${
                       selectedImage === index
-                        ? "border-stone-900"
-                        : "border-transparent hover:border-stone-300"
+                        ? "ring-1 ring-[#A26769]"
+                        : "opacity-60 hover:opacity-100"
                     }`}
                   >
                     <Image
                       src={image}
-                      alt={`${product.name} ${index + 1}`}
+                      alt=""
                       fill
                       className="object-cover"
-                      sizes="25vw"
                     />
                   </button>
                 ))}
@@ -93,132 +83,126 @@ export default function ProductDetail() {
             )}
           </div>
 
-          {/* Product Info */}
-          <div className="space-y-6">
+          {/* RIGHT – Info */}
+          <div className="space-y-8">
+
             <div>
-              <p className="text-xs text-stone-500 tracking-wider uppercase mb-2">
+              <p className="text-xs uppercase tracking-[0.3em] text-stone-400 mb-4">
                 {product.category}
               </p>
-              <h1 className="text-3xl md:text-4xl font-light tracking-wide text-stone-900 mb-4">
+
+              <h1 className="text-4xl font-display font-medium text-black">
                 {product.name}
               </h1>
-              <p className="text-2xl text-stone-900">${product.price}</p>
+
+              <div className="w-20 h-px bg-[#A26769] mt-6 mb-6" />
+
+              <p className="text-2xl text-black">
+                Rp {product.price.toLocaleString("id-ID")}
+              </p>
             </div>
 
-            <p className="text-stone-600 leading-relaxed">
+            <p className="text-stone-600 font-light leading-relaxed">
               {product.description}
             </p>
 
-            {/* Color Selection */}
-            <div>
-              <label className="block text-[10px] font-light text-black mb-4 tracking-[0.2em] uppercase">
-                Pilih Warna
-              </label>
-              <div className="flex flex-wrap gap-3">
-                {product.colors.map((color) => (
-                  <button
-                    key={color}
-                    onClick={() => setSelectedColor(color)}
-                    className={`px-6 py-3 border transition-all text-xs tracking-wider font-light ${
-                      selectedColor === color
-                        ? "bg-black text-white border-black"
-                        : "border-stone-300 text-black hover:border-black"
-                    }`}
-                  >
-                    {color}
-                  </button>
-                ))}
+            {/* Specification */}
+            <div className="border-t border-stone-200 pt-8 space-y-6">
+
+              <h3 className="text-sm uppercase tracking-[0.3em] text-stone-500">
+                Detail Gaun
+              </h3>
+
+              <div className="grid grid-cols-2 gap-y-4 text-sm">
+                <div className="text-stone-500">Material</div>
+                <div className="text-black">{product.details.fabric}</div>
+
+                <div className="text-stone-500">Siluet</div>
+                <div className="text-black">{product.details.fit}</div>
+
+                <div className="text-stone-500">Perawatan</div>
+                <div className="text-black">{product.details.care}</div>
+
+                <div className="text-stone-500">Asal</div>
+                <div className="text-black">{product.details.origin}</div>
               </div>
+
             </div>
 
-            {/* Size Selection */}
-            <div>
-              <label className="block text-[10px] font-light text-black mb-4 tracking-[0.2em] uppercase">
-                Pilih Ukuran
-              </label>
-              <div className="flex flex-wrap gap-3">
-                {product.sizes.map((size) => (
-                  <button
-                    key={size}
-                    onClick={() => setSelectedSize(size)}
-                    className={`w-14 h-14 border transition-all text-sm font-light ${
-                      selectedSize === size
-                        ? "bg-black text-white border-black scale-105"
-                        : "border-stone-300 text-black hover:border-black"
-                    }`}
-                  >
-                    {size}
-                  </button>
-                ))}
+            {/* Size Specification */}
+            <div className="border-t border-stone-200 pt-8 space-y-6">
+
+              <h3 className="text-sm uppercase tracking-[0.3em] text-stone-500">
+                Ukuran Gaun
+              </h3>
+
+              <div className="grid grid-cols-2 gap-y-4 text-sm">
+                <div className="text-stone-500">Lingkar Dada</div>
+                <div className="text-black">84 – 92 cm</div>
+
+                <div className="text-stone-500">Lingkar Pinggang</div>
+                <div className="text-black">66 – 74 cm</div>
+
+                <div className="text-stone-500">Lingkar Pinggul</div>
+                <div className="text-black">90 – 98 cm</div>
+
+                <div className="text-stone-500">Panjang Gaun</div>
+                <div className="text-black">150 cm</div>
               </div>
+
             </div>
 
-            {/* Order via WhatsApp */}
-            <div className="space-y-4">
+            {/* CTA */}
+            <div className="pt-8">
               <button
                 onClick={() => {
-                  const message = `Halo! Saya tertarik untuk memesan:\n\n*${product.name}*\nHarga: $${product.price}\nUkuran: ${selectedSize || "Belum dipilih"}\nWarna: ${selectedColor || "Belum dipilih"}\n\nMohon informasi lebih lanjut.`;
+                  const message = `Halo, saya tertarik dengan ${product.name}. Mohon informasi lebih lanjut.`;
                   const whatsappUrl = `https://wa.me/${BRAND.whatsapp}?text=${encodeURIComponent(message)}`;
                   window.open(whatsappUrl, "_blank");
                 }}
-                disabled={!selectedSize || !selectedColor}
-                className="btn-primary w-full group disabled:bg-stone-300 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+                className="w-full py-4 bg-[#A26769] text-white uppercase tracking-[0.25em] text-xs transition-all duration-300 hover:bg-black"
               >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
-                </svg>
-                <span className="relative z-10">Pesan via WhatsApp</span>
+                Hubungi via WhatsApp
               </button>
-              {(!selectedSize || !selectedColor) && (
-                <p className="text-xs text-stone-500 text-center tracking-wide">
-                  Silakan pilih ukuran dan warna untuk melanjutkan
-                </p>
-              )}
             </div>
 
-            {/* Product Details */}
-            <div className="border-t border-stone-200 pt-6 space-y-3">
-              <h3 className="text-sm font-medium text-stone-900 tracking-wider uppercase">
-                Details
-              </h3>
-              <dl className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <dt className="text-stone-500">Fabric</dt>
-                  <dd className="text-stone-900">{product.details.fabric}</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-stone-500">Care</dt>
-                  <dd className="text-stone-900 text-right max-w-xs">
-                    {product.details.care}
-                  </dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-stone-500">Fit</dt>
-                  <dd className="text-stone-900">{product.details.fit}</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="text-stone-500">Origin</dt>
-                  <dd className="text-stone-900">{product.details.origin}</dd>
-                </div>
-              </dl>
-            </div>
           </div>
+
         </div>
+
       </Section>
 
-      {/* Related Products */}
+      {/* Preview Modal */}
+      {previewOpen && (
+        <div
+          className="fixed inset-0 bg-black/90 flex items-center justify-center z-50"
+          onClick={() => setPreviewOpen(false)}
+        >
+          <div className="relative w-[90vw] h-[90vh]">
+            <Image
+              src={product.images[selectedImage]}
+              alt={product.name}
+              fill
+              className="object-contain"
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Related */}
       {relatedProducts.length > 0 && (
-        <Section background="stone">
-          <h2 className="text-3xl md:text-4xl font-light tracking-wide text-center mb-12 text-stone-900">
-            You May Also Like
+        <Section background="blushSoft">
+          <h2 className="text-3xl font-display text-center mb-16 text-black">
+            Koleksi Lainnya
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {relatedProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
         </Section>
       )}
+
     </div>
   );
 }
