@@ -41,46 +41,51 @@ export default function Home() {
 
       {/* CATEGORIES */}
       <Section>
-        <div className="text-center mb-16 max-w-3xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-display font-medium text-black">
-            Koleksi Kami
-          </h2>
-          <p className="mt-4 text-stone-500 font-light">
-            Gaun pernikahan untuk pembelian dan penyewaan.
-          </p>
+  {/* Header */}
+  <div className="text-center mb-12 md:mb-16 max-w-2xl mx-auto px-4">
+    <h2 className="text-3xl md:text-5xl font-display font-medium text-black">
+      Koleksi Kami
+    </h2>
+    <p className="mt-3 md:mt-4 text-stone-500 font-light text-sm md:text-base">
+      Gaun pernikahan untuk pembelian dan penyewaan.
+    </p>
+  </div>
+
+  {/* Grid */}
+  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 md:gap-10">
+    {mainCategories.map((category) => (
+      <Link
+        key={category.slug}
+        href={`/catalog?category=${category.slug}`}
+        className="group block"
+      >
+        <div className="space-y-3 md:space-y-4">
+
+          {/* Image */}
+          <div className="relative aspect-[4/5] md:aspect-[3/4] overflow-hidden bg-stone-100">
+            <img
+              src={getCategoryImage(category.slug)}
+              alt={category.name}
+              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+            />
+          </div>
+
+          {/* Title */}
+          <div className="flex flex-col items-start gap-2">
+            <h3 className="text-[11px] sm:text-xs md:text-sm tracking-[0.18em] md:tracking-[0.25em] uppercase font-light text-black transition-colors duration-300 group-hover:text-[#A26769] leading-snug">
+              {category.name}
+            </h3>
+
+            {/* Subtle accent line */}
+            <span className="h-px w-6 md:w-0 bg-[#A26769] transition-all duration-300 md:group-hover:w-10" />
+          </div>
+
         </div>
+      </Link>
+    ))}
+  </div>
+</Section>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
-          {mainCategories.map((category) => (
-            <Link
-              key={category.slug}
-              href={`/catalog?category=${category.slug}`}
-              className="group block"
-            >
-              <div className="space-y-4">
-                {/* Image */}
-                <div className="relative aspect-[3/4] overflow-hidden bg-stone-100">
-                  <img
-                    src={getCategoryImage(category.slug)}
-                    alt={category.name}
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                  />
-                </div>
-
-                {/* Title */}
-                <div className="flex flex-col items-start gap-2">
-                  <h3 className="text-sm tracking-[0.25em] uppercase font-light text-black transition-colors duration-300 group-hover:text-[#A26769]">
-                    {category.name}
-                  </h3>
-
-                  {/* Subtle underline */}
-                  <span className="h-px w-0 bg-[#A26769] transition-all duration-300 group-hover:w-10" />
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </Section>
 
       {/* FEATURED */}
       <Section background="blushSoft">
@@ -94,7 +99,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-4 gap-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-12">
           {featuredProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

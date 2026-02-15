@@ -16,10 +16,10 @@ export default function ProductCard({ product }) {
       href={`/catalog/${product.slug}`}
       className="group block"
     >
-      <div className="space-y-6">
+      <div className="space-y-3 md:space-y-5">
 
         {/* IMAGE */}
-        <div className="relative aspect-[3/4] overflow-hidden bg-stone-100">
+        <div className="relative aspect-[4/5] md:aspect-[3/4] overflow-hidden bg-stone-100">
           <Image
             src={product.images[0]}
             alt={product.name}
@@ -29,22 +29,21 @@ export default function ProductCard({ product }) {
         </div>
 
         {/* INFO */}
-        <div className="space-y-2">
+        <div className="space-y-1.5 md:space-y-2">
 
-          <p className="text-[10px] tracking-[0.35em] uppercase text-stone-400">
+          <p className="text-[9px] md:text-[10px] tracking-[0.25em] md:tracking-[0.35em] uppercase text-stone-400">
             {product.category}
           </p>
 
-          <h3 className="font-display text-xl font-medium text-black transition-colors duration-300 group-hover:text-[#A26769]">
+          <h3 className="font-display text-sm sm:text-base md:text-xl font-medium text-black leading-snug transition-colors duration-300 group-hover:text-[#A26769]">
             {product.name}
           </h3>
 
-          <p className="text-sm text-stone-600 font-light">
+          <p className="text-xs md:text-sm text-stone-600 font-light">
             {formatPrice(product.price)}
           </p>
 
         </div>
-
       </div>
     </Link>
   );
