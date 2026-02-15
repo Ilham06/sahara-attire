@@ -229,3 +229,4 @@ export const categories = [
   { name: "Bridesmaid", slug: "bridesmaid" },
   { name: "Aksesori Bridal", slug: "bridal-accessories" }
 ];
+
