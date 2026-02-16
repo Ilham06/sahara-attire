@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Section from "@/components/Section";
 import ProductCard from "@/components/ProductCard";
 import { products, categories } from "@/data/products";
 
-export default function Catalog() {
+function CatalogContent() {
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get("category") || "all";
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
@@ -65,5 +65,24 @@ export default function Catalog() {
         )}
       </Section>
     </div>
+  );
+}
+
+export default function Catalog() {
+  return (
+    <Suspense
+      fallback={
+        <div className="pt-24 md:pt-32">
+          <Section>
+            <div className="mx-auto max-w-4xl text-center">
+              <p className="section-kicker">Catalog</p>
+              <h1 className="section-title mt-6">Koleksi Sahara Attire</h1>
+            </div>
+          </Section>
+        </div>
+      }
+    >
+      <CatalogContent />
+    </Suspense>
   );
 }
