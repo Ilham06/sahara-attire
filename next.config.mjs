@@ -10,6 +10,11 @@ const nextConfig = {
         hostname: "images.unsplash.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "sahara-dress-catalog.lovable.app",
+        pathname: "/**",
+      },
     ],
   },
 };

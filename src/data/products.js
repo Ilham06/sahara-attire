@@ -8,7 +8,7 @@ export const products = [
     description:
       "Gaun pengantin A-line dengan renda Prancis dan lapisan tulle premium. Dirancang untuk memancarkan keanggunan klasik dengan sentuhan modern.",
     images: [
-      "https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?w=1000&q=80",
+      "https://images.unsplash.com/photo-1718871716580-117417d490f6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fGRyZXNzJTIwbGFuc2NhcGV8ZW58MHx8MHx8fDA%3D",
       "https://images.unsplash.com/photo-1521335629791-ce4aec67dd53?w=1000&q=80"
     ],
     sizes: ["Custom"],
@@ -227,6 +227,5 @@ export const categories = [
   { name: "Gaun Resepsi", slug: "reception-dress" },
   { name: "Busana Tunangan", slug: "engagement" },
   { name: "Bridesmaid", slug: "bridesmaid" },
-  { name: "Aksesori Bridal", slug: "bridal-accessories" }
 ];
 

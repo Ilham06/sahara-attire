@@ -20,7 +20,7 @@ export default function Hero() {
         style={{ transform: `translateY(${scrollY * 0.15}px)` }}
       >
         <Image
-          src="https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?w=1600&q=90"
+          src="https://sahara-dress-catalog.lovable.app/assets/hero-fashion-B5Fqi6o5.jpg"
           alt="Sahara Attire Bridal Collection"
           fill
           priority

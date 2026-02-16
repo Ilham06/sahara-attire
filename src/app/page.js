@@ -50,7 +50,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-8 lg:grid-cols-5">
+        <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-8 lg:grid-cols-4">
           {mainCategories.map((category) => (
             <Link
               key={category.slug}
