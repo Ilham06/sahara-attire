@@ -26,9 +26,9 @@ export default function Header() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
         scrolled ? "pt-2 md:pt-4" : "pt-4 md:pt-6"
-      }`}
+      } overflow-x-clip`}
     >
-      <nav className="mx-auto w-full max-w-7xl px-5 md:px-10">
+      <nav className="mx-auto w-full max-w-7xl overflow-x-clip px-4 sm:px-5 md:px-10">
         <div
           className={`rounded-2xl border transition-all duration-500 ${
             scrolled
@@ -36,8 +36,11 @@ export default function Header() {
               : "border-white/40 bg-white/55 backdrop-blur-lg"
           }`}
         >
-          <div className="flex items-center justify-between px-5 py-3 md:px-7">
-            <Link href="/" className="font-display text-2xl tracking-tight text-[#a26769] md:text-3xl">
+          <div className="flex min-w-0 items-center justify-between px-4 py-3 md:px-7">
+            <Link
+              href="/"
+              className="block min-w-0 max-w-[72%] truncate pr-2 font-display text-xl tracking-tight text-[#a26769] sm:text-2xl md:max-w-none md:text-3xl"
+            >
               {BRAND.name}
             </Link>
 
@@ -75,7 +78,7 @@ export default function Header() {
 
             <button
               onClick={() => setMobileMenuOpen((prev) => !prev)}
-              className="relative z-50 flex h-10 w-10 items-center justify-center rounded-full border border-[#d8c6be] bg-white/85 md:hidden"
+              className="relative z-50 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#d8c6be] bg-white/85 md:hidden"
               aria-label="Toggle menu"
             >
               <div className="flex h-4 w-5 flex-col justify-between">
@@ -113,7 +116,7 @@ export default function Header() {
                   <Link
                     key={item.path}
                     href={item.path}
-                    className={`block text-sm uppercase tracking-[0.25em] ${
+                    className={`block text-sm uppercase tracking-[0.24em] ${
                       active ? "text-[#a26769]" : "text-[#685a55]"
                     }`}
                   >

@@ -71,14 +71,16 @@ function ContactItem({ icon, label, value, link }) {
       href={link}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex items-center justify-between border-b border-[#e5d7d1] pb-4 transition-all duration-300"
+      className="group flex items-start justify-between gap-3 border-b border-[#e5d7d1] pb-4 transition-all duration-300"
     >
       <div className="flex items-center gap-4 text-[#7a6d67] transition-colors duration-300 group-hover:text-[#a26769]">
         {icon}
         <span className="text-xs uppercase tracking-[0.25em]">{label}</span>
       </div>
 
-      <span className="text-sm text-[#2a201f] transition-colors duration-300 group-hover:text-[#a26769]">{value}</span>
+      <span className="max-w-[58%] break-words text-right text-sm text-[#2a201f] transition-colors duration-300 group-hover:text-[#a26769]">
+        {value}
+      </span>
     </a>
   )
 }

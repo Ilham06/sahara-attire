@@ -34,9 +34,9 @@ export default function Home() {
   };
 
   return (
-    <div className="relative">
-      <div className="mesh-accent -left-16 top-60 h-64 w-64" />
-      <div className="mesh-accent -right-16 top-[54rem] h-80 w-80" />
+    <div className="relative overflow-x-clip">
+      <div className="mesh-accent -left-16 top-60 hidden h-64 w-64 md:block" />
+      <div className="mesh-accent -right-16 top-[54rem] hidden h-80 w-80 md:block" />
 
       <Hero />
 
