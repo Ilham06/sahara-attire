@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   sahara-attire:
     build: .
@@ -10,3 +8,4 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=3007
+      - NEXT_IMAGE_UNOPTIMIZED=true
