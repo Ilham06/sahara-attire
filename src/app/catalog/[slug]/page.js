@@ -1,20 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import Section from "@/components/Section";
 import ProductCard from "@/components/ProductCard";
-import { products } from "@/data/products";
-import { BRAND } from "@/data/constants";
+import { getProducts, getContact } from "@/lib/dataStore";
 
 export default function ProductDetail() {
   const params = useParams();
+  const [products, setProducts] = useState([]);
+  const [brand, setBrand] = useState(null);
+
+  useEffect(() => {
+    setProducts(getProducts());
+    setBrand(getContact());
+  }, []);
+
   const product = products.find((p) => p.slug === params.slug);
 
   const [selectedImage, setSelectedImage] = useState(0);
   const [previewOpen, setPreviewOpen] = useState(false);
+
+  if (!brand || products.length === 0) return null;
 
   if (!product) {
     return (
@@ -132,7 +141,7 @@ export default function ProductDetail() {
               <button
                 onClick={() => {
                   const message = `Halo, saya tertarik dengan ${product.name}. Mohon informasi lebih lanjut.`;
-                  const whatsappUrl = `https://wa.me/${BRAND.whatsapp}?text=${encodeURIComponent(message)}`;
+                  const whatsappUrl = `https://wa.me/${brand.whatsapp}?text=${encodeURIComponent(message)}`;
                   window.open(whatsappUrl, "_blank");
                 }}
                 className="btn-primary w-full"

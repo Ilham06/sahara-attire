@@ -1,18 +1,26 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Hero from "@/components/Hero";
 import Section from "@/components/Section";
 import ProductCard from "@/components/ProductCard";
-import { products, categories } from "@/data/products";
-import { REVIEWS } from "@/data/constants";
+import { getProducts, getCategories, getReviews, getCopywriting } from "@/lib/dataStore";
 import Link from "next/link";
 import ContactSection from "@/components/ContactSection";
 
-export const metadata = {
-  title: "Beranda",
-  description:
-    "Sahara Attire adalah rumah mode busana pernikahan dengan sentuhan modern dan keanggunan klasik.",
-};
-
 export default function Home() {
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [reviews, setReviews] = useState([]);
+  const [copy, setCopy] = useState(null);
+
+  useEffect(() => {
+    setProducts(getProducts());
+    setCategories(getCategories());
+    setReviews(getReviews());
+    setCopy(getCopywriting());
+  }, []);
+
   const featuredProducts = products.filter((p) => p.featured);
   const mainCategories = categories.filter((c) => c.slug !== "all");
 
@@ -33,6 +41,8 @@ export default function Home() {
     }
   };
 
+  if (!copy) return null;
+
   return (
     <div className="relative overflow-x-clip">
       <div className="mesh-accent -left-16 top-60 hidden h-64 w-64 md:block" />
@@ -42,11 +52,10 @@ export default function Home() {
 
       <Section>
         <div className="mx-auto max-w-3xl text-center">
-          <p className="section-kicker">Curated Collection</p>
-          <h2 className="section-title mt-6">Koleksi Pilihan Kami</h2>
+          <p className="section-kicker">{copy.collection.kicker}</p>
+          <h2 className="section-title mt-6">{copy.collection.title}</h2>
           <p className="mx-auto mt-4 max-w-2xl text-[#635551]">
-            Eksplorasi kategori gaun pengantin dan busana acara istimewa dengan sentuhan modern, struktur elegan,
-            dan material premium.
+            {copy.collection.description}
           </p>
         </div>
 
@@ -76,10 +85,10 @@ export default function Home() {
 
       <Section background="blushSoft">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="section-kicker">Best Seller</p>
-          <h2 className="section-title mt-6">Gaun Pengantin & Resepsi</h2>
+          <p className="section-kicker">{copy.bestSeller.kicker}</p>
+          <h2 className="section-title mt-6">{copy.bestSeller.title}</h2>
           <p className="mt-4 text-[#635551]">
-            Pilihan favorit klien kami untuk momen akad, resepsi, hingga engagement photoshoot.
+            {copy.bestSeller.description}
           </p>
         </div>
 
@@ -98,21 +107,13 @@ export default function Home() {
 
       <Section>
         <div className="grid gap-8 md:grid-cols-3">
-          <article className="editorial-card">
-            <p className="section-kicker">01</p>
-            <h3 className="mt-4 font-display text-3xl text-[#1f1816]">Premium Material</h3>
-            <p className="mt-4 text-[#655752]">Satin silk, French lace, dan organza pilihan dengan hasil akhir mewah.</p>
-          </article>
-          <article className="editorial-card">
-            <p className="section-kicker">02</p>
-            <h3 className="mt-4 font-display text-3xl text-[#1f1816]">Tailored Fit</h3>
-            <p className="mt-4 text-[#655752]">Setiap gaun dipersiapkan agar proporsional dan nyaman sepanjang acara.</p>
-          </article>
-          <article className="editorial-card">
-            <p className="section-kicker">03</p>
-            <h3 className="mt-4 font-display text-3xl text-[#1f1816]">Timeless Design</h3>
-            <p className="mt-4 text-[#655752]">Desain kontemporer yang tetap relevan untuk dikenang bertahun-tahun.</p>
-          </article>
+          {copy.features.map((feat) => (
+            <article key={feat.number} className="editorial-card">
+              <p className="section-kicker">{feat.number}</p>
+              <h3 className="mt-4 font-display text-3xl text-[#1f1816]">{feat.title}</h3>
+              <p className="mt-4 text-[#655752]">{feat.description}</p>
+            </article>
+          ))}
         </div>
       </Section>
 
@@ -120,12 +121,12 @@ export default function Home() {
 
       <Section>
         <div className="mx-auto max-w-3xl text-center">
-          <p className="section-kicker">Client Experience</p>
-          <h2 className="section-title mt-6">Cerita Klien Sahara</h2>
+          <p className="section-kicker">{copy.reviews.kicker}</p>
+          <h2 className="section-title mt-6">{copy.reviews.title}</h2>
         </div>
 
         <div className="mt-12 grid gap-6 md:grid-cols-2">
-          {REVIEWS.slice(0, 4).map((review) => (
+          {reviews.slice(0, 4).map((review) => (
             <article key={review.id} className="editorial-card">
               <p className="text-lg italic leading-relaxed text-[#544744]">"{review.text}"</p>
               <div className="soft-divider my-5" />

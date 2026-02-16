@@ -1,10 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Section from "@/components/Section";
-import { BRAND } from "@/data/constants";
+import { getContact } from "@/lib/dataStore";
 
 export default function Contact() {
+  const [brand, setBrand] = useState(null);
+
+  useEffect(() => {
+    setBrand(getContact());
+  }, []);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -27,6 +33,8 @@ export default function Contact() {
       [e.target.name]: e.target.value,
     });
   };
+
+  if (!brand) return null;
 
   return (
     <div className="pt-24 md:pt-32">
@@ -115,36 +123,36 @@ export default function Contact() {
                 <div className="mt-6 space-y-5">
                   <div>
                     <h3 className="text-[11px] uppercase tracking-[0.26em] text-[#867670]">Email</h3>
-                    <a href={`mailto:${BRAND.email}`} className="mt-2 inline-block text-[#2d2220] hover:text-[#a26769]">
-                      {BRAND.email}
+                    <a href={`mailto:${brand.email}`} className="mt-2 inline-block text-[#2d2220] hover:text-[#a26769]">
+                      {brand.email}
                     </a>
                   </div>
 
                   <div>
                     <h3 className="text-[11px] uppercase tracking-[0.26em] text-[#867670]">Telepon</h3>
-                    <a href={`tel:${BRAND.phone}`} className="mt-2 inline-block text-[#2d2220] hover:text-[#a26769]">
-                      {BRAND.phone}
+                    <a href={`tel:${brand.phone}`} className="mt-2 inline-block text-[#2d2220] hover:text-[#a26769]">
+                      {brand.phone}
                     </a>
                   </div>
 
                   <div>
                     <h3 className="text-[11px] uppercase tracking-[0.26em] text-[#867670]">Alamat</h3>
                     <address className="mt-2 not-italic text-[#2d2220]">
-                      {BRAND.address.street}
+                      {brand.address.street}
                       <br />
-                      {BRAND.address.city}, {BRAND.address.state}{" "}
-                      {BRAND.address.zip}
+                      {brand.address.city}, {brand.address.state}{" "}
+                      {brand.address.zip}
                       <br />
-                      {BRAND.address.country}
+                      {brand.address.country}
                     </address>
                   </div>
 
                   <div>
                     <h3 className="text-[11px] uppercase tracking-[0.26em] text-[#867670]">Jam Operasional</h3>
                     <div className="mt-2 space-y-1 text-[#2d2220]">
-                      <p>Senin - Jumat: {BRAND.hours.weekdays}</p>
-                      <p>Sabtu: {BRAND.hours.saturday}</p>
-                      <p>Minggu: {BRAND.hours.sunday}</p>
+                      <p>Senin - Jumat: {brand.hours.weekdays}</p>
+                      <p>Sabtu: {brand.hours.saturday}</p>
+                      <p>Minggu: {brand.hours.sunday}</p>
                     </div>
                   </div>
                 </div>
@@ -156,7 +164,7 @@ export default function Contact() {
                 </h3>
                 <div className="mt-4 flex gap-4">
                   <a
-                    href={BRAND.social.instagram}
+                    href={brand.social.instagram}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[#6f615c] transition-colors hover:text-[#a26769]"
@@ -171,7 +179,7 @@ export default function Contact() {
                     </svg>
                   </a>
                   <a
-                    href={BRAND.social.facebook}
+                    href={brand.social.facebook}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[#6f615c] transition-colors hover:text-[#a26769]"
@@ -186,7 +194,7 @@ export default function Contact() {
                     </svg>
                   </a>
                   <a
-                    href={BRAND.social.pinterest}
+                    href={brand.social.pinterest}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[#6f615c] transition-colors hover:text-[#a26769]"

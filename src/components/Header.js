@@ -2,19 +2,22 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { NAVIGATION, BRAND } from "@/data/constants";
+import { NAVIGATION } from "@/data/constants";
+import { getContact } from "@/lib/dataStore";
 import { useState, useEffect } from "react";
 
 export default function Header() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [brand, setBrand] = useState({ name: "Sahara Attire", whatsapp: "" });
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
+    setBrand(getContact());
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -41,7 +44,7 @@ export default function Header() {
               href="/"
               className="block min-w-0 max-w-[72%] truncate pr-2 font-display text-xl tracking-tight text-[#a26769] sm:text-2xl md:max-w-none md:text-3xl"
             >
-              {BRAND.name}
+              {brand.name}
             </Link>
 
             <div className="hidden items-center gap-8 md:flex">
@@ -67,7 +70,7 @@ export default function Header() {
               })}
 
               <a
-                href={`https://wa.me/${BRAND.whatsapp}`}
+                href={`https://wa.me/${brand.whatsapp}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary !px-5 !py-2 !text-[10px]"
@@ -126,7 +129,7 @@ export default function Header() {
               })}
             </div>
             <a
-              href={`https://wa.me/${BRAND.whatsapp}`}
+              href={`https://wa.me/${brand.whatsapp}`}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary mt-6 w-full !py-3 !text-[10px]"

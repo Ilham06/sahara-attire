@@ -1,9 +1,18 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import { Instagram, MessageCircle, Music, MapPin } from "lucide-react"
-import { BRAND } from "@/data/constants"
+import { getContact } from "@/lib/dataStore"
 
 export default function ContactSection() {
+  const [brand, setBrand] = useState(null)
+
+  useEffect(() => {
+    setBrand(getContact())
+  }, [])
+
+  if (!brand) return null
+
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-[#f8f1ed] to-[#f4eeea] py-24 md:py-28">
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -23,7 +32,7 @@ export default function ContactSection() {
             Jadwalkan fitting pribadi bersama tim kami untuk mengetahui koleksi terbaru, opsi custom, dan layanan
             rental premium.
           </p>
-          <a href={`https://wa.me/${BRAND.whatsapp}`} target="_blank" rel="noopener noreferrer" className="btn-primary mt-9">
+          <a href={`https://wa.me/${brand.whatsapp}`} target="_blank" rel="noopener noreferrer" className="btn-primary mt-9">
             Booking Appointment
           </a>
         </div>
@@ -32,28 +41,28 @@ export default function ContactSection() {
           <ContactItem
             icon={<MessageCircle size={20} />}
             label="WhatsApp"
-            value={BRAND.whatsappDisplay}
-            link={`https://wa.me/${BRAND.whatsapp}`}
+            value={brand.whatsappDisplay}
+            link={`https://wa.me/${brand.whatsapp}`}
           />
 
           <ContactItem
             icon={<Instagram size={20} />}
             label="Instagram"
             value="@saharaattire"
-            link={BRAND.social.instagram}
+            link={brand.social?.instagram}
           />
 
           <ContactItem
             icon={<Music size={20} />}
             label="TikTok"
             value="@saharaattire"
-            link={BRAND.social.tiktok}
+            link={brand.social?.tiktok}
           />
 
           <ContactItem
             icon={<MapPin size={20} />}
             label="Lokasi"
-            value={`${BRAND.address.city}, ${BRAND.address.country}`}
+            value={`${brand.address?.city}, ${brand.address?.country}`}
             link="https://maps.google.com"
           />
         </div>

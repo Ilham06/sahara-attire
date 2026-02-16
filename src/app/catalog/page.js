@@ -1,15 +1,22 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import Section from "@/components/Section";
 import ProductCard from "@/components/ProductCard";
-import { products, categories } from "@/data/products";
+import { getProducts, getCategories } from "@/lib/dataStore";
 
 function CatalogContent() {
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get("category") || "all";
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    setProducts(getProducts());
+    setCategories(getCategories());
+  }, []);
 
   const categoryProductMap = {
     "bridal-gown": "Gaun Pengantin",

@@ -1,8 +1,6 @@
 import { Cormorant_Garamond, Outfit, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import { BRAND } from "@/data/constants";
+import LayoutWrapper from "@/components/LayoutWrapper";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -31,9 +29,7 @@ export default function RootLayout({ children }) {
       className={`${cormorant.variable} ${outfit.variable} ${playfair.variable}`}
     >
       <body className="font-[var(--font-outfit)] antialiased text-neutral-900">
-        <Header />
-        <main>{children}</main>
-        <Footer />
+        <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>
   );
