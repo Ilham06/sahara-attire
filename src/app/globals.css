@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fafaf9;
-  --foreground: #0a0a0a;
-
-  --accent: #A26769;
-  --accent-dark: #8E5759;
+  --background: #f4f0ed;
+  --foreground: #171312;
+  --surface: #ffffff;
+  --surface-soft: #fbf8f6;
+  --accent: #a26769;
+  --accent-dark: #875458;
+  --line: #e6dbd6;
+  --muted: #746862;
 }
 
-/* =========================
-   THEME TOKENS
-========================= */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -21,23 +21,32 @@
   --font-display: var(--font-playfair), ui-serif, Georgia, serif;
 }
 
-/* =========================
-   GLOBAL BASE
-========================= */
 * {
   scroll-behavior: smooth;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
-  background: var(--background);
+  background: radial-gradient(
+      circle at 20% 0%,
+      #fff9f4 0%,
+      rgba(255, 249, 244, 0) 45%
+    ),
+    radial-gradient(circle at 100% 100%, #f6eeea 0%, rgba(246, 238, 234, 0) 40%),
+    var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
-  font-weight: 300;
-  letter-spacing: 0.01em;
+  font-weight: 320;
+  letter-spacing: 0.01rem;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Headings default tetap clean */
 h1,
 h2,
 h3,
@@ -45,25 +54,19 @@ h4,
 h5,
 h6 {
   font-family: var(--font-sans);
-  font-weight: 700;
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
-/* =========================
-   DISPLAY / BRAND FONT
-   (PAKAI INI UNTUK SAHARA ATTIRE)
-========================= */
 .font-display {
   font-family: var(--font-display);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
 
 .font-serif-luxury {
   font-family: var(--font-serif);
 }
 
-/* =========================
-   PREMIUM ANIMATIONS
-========================= */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -94,9 +97,6 @@ h6 {
   animation: scaleIn 0.6s ease-out forwards;
 }
 
-/* =========================
-   SCROLLBAR
-========================= */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -115,62 +115,85 @@ h6 {
   background: var(--accent-dark);
 }
 
-/* =========================
-   SELECTION
-========================= */
 ::selection {
   background-color: var(--accent);
   color: #ffffff;
 }
 
-/* =========================
-   BUTTONS – LUXURY STYLE
-========================= */
 .btn-primary {
-  @apply relative overflow-hidden bg-black text-white px-8 py-4 tracking-[0.25em] text-xs uppercase font-light transition-all duration-500;
+  @apply inline-flex items-center justify-center rounded-full px-8 py-3 text-[11px] font-medium uppercase tracking-[0.28em] transition-all duration-300;
+  background: linear-gradient(135deg, #0f0b0b 0%, #2f2221 100%);
+  color: #fef8f4;
+  box-shadow: 0 12px 28px rgba(34, 24, 23, 0.2);
 }
 
-.btn-primary::before {
-  content: "";
-  @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full;
-  transition: transform 0.6s ease;
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 34px rgba(34, 24, 23, 0.28);
 }
 
-.btn-primary:hover::before {
-  @apply translate-x-full;
+.btn-primary:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
 }
 
 .btn-secondary {
-  @apply relative border border-black text-black px-8 py-4 tracking-[0.25em] text-xs uppercase font-light transition-all duration-300 hover:bg-black hover:text-white;
+  @apply inline-flex items-center justify-center rounded-full px-8 py-3 text-[11px] font-medium uppercase tracking-[0.28em] transition-all duration-300;
+  border: 1px solid rgba(44, 33, 30, 0.2);
+  color: #2d211f;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(6px);
 }
 
-/* =========================
-   UNDERLINE EFFECT
-========================= */
-.link-underline {
-  @apply relative;
+.btn-secondary:hover {
+  border-color: rgba(162, 103, 105, 0.6);
+  color: #a26769;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(162, 103, 105, 0.14);
 }
 
-.link-underline::after {
-  content: "";
-  @apply absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-300;
+.section-title {
+  @apply font-display text-4xl md:text-5xl text-[#181313];
 }
 
-.link-underline:hover::after {
-  @apply w-full;
+.section-kicker {
+  @apply text-[10px] uppercase tracking-[0.4em] text-[#8d7f78];
 }
 
-/* =========================
-   IMAGE REVEAL
-========================= */
-.image-reveal {
-  @apply overflow-hidden;
+.editorial-card {
+  @apply rounded-[1.75rem] border border-[#e9dfda] bg-white/85 p-7 md:p-9;
+  box-shadow: 0 18px 48px rgba(57, 41, 38, 0.08);
+  backdrop-filter: blur(8px);
 }
 
-.image-reveal img {
-  @apply transition-transform duration-700 ease-out;
+.glass-panel {
+  @apply border border-white/40 bg-white/55;
+  backdrop-filter: blur(10px);
 }
 
-.image-reveal:hover img {
-  @apply scale-110;
+.mesh-accent {
+  position: absolute;
+  pointer-events: none;
+  filter: blur(48px);
+  opacity: 0.35;
+  background: radial-gradient(circle, #b9898b 0%, rgba(185, 137, 139, 0) 70%);
+}
+
+.soft-divider {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    rgba(226, 210, 203, 0) 0%,
+    rgba(198, 173, 165, 0.85) 45%,
+    rgba(226, 210, 203, 0) 100%
+  );
+}
+
+.luxury-input {
+  @apply w-full rounded-2xl border border-[#ddcec8] bg-white px-4 py-3 text-sm text-[#241c1b] transition-all duration-300 outline-none;
+}
+
+.luxury-input:focus {
+  border-color: rgba(162, 103, 105, 0.8);
+  box-shadow: 0 0 0 3px rgba(162, 103, 105, 0.12);
 }

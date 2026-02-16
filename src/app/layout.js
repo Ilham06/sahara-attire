@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
       lang="id"
       className={`${cormorant.variable} ${outfit.variable} ${playfair.variable}`}
     >
-      <body className="font-[var(--font-outfit)] antialiased bg-white text-neutral-900">
+      <body className="font-[var(--font-outfit)] antialiased text-neutral-900">
         <Header />
         <main>{children}</main>
         <Footer />

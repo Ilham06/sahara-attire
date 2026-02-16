@@ -1,85 +1,68 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Section from "@/components/Section";
 import ProductCard from "@/components/ProductCard";
 import { products, categories } from "@/data/products";
 
 export default function Catalog() {
-  const [selectedCategory, setSelectedCategory] = useState("all");
+  const searchParams = useSearchParams();
+  const initialCategory = searchParams.get("category") || "all";
+  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
+
+  const categoryProductMap = {
+    "bridal-gown": "Gaun Pengantin",
+    "reception-dress": "Gaun Resepsi",
+    engagement: "Busana Tunangan",
+    bridesmaid: "Bridesmaid",
+    "bridal-accessories": "Aksesori Bridal",
+  };
 
   const filteredProducts =
     selectedCategory === "all"
       ? products
-      : products.filter(
-          (p) => p.category.toLowerCase() === selectedCategory.toLowerCase()
-        );
+      : products.filter((p) => p.category === categoryProductMap[selectedCategory]);
 
   return (
     <div className="pt-24 md:pt-32">
-
-      {/* HEADER */}
       <Section>
-        <div className="max-w-4xl mx-auto text-center space-y-6 mb-16">
-          <h1 className="text-5xl md:text-6xl font-display font-medium text-black">
-            Koleksi
-          </h1>
-
-          <div className="w-20 h-px bg-[#A26769] mx-auto" />
-
-          <p className="text-stone-600 font-light max-w-2xl mx-auto">
-            Temukan pilihan gaun pernikahan untuk pembelian
-            dan penyewaan yang dirancang dengan siluet modern
-            dan sentuhan elegan.
+        <div className="mx-auto max-w-4xl text-center">
+          <p className="section-kicker">Catalog</p>
+          <h1 className="section-title mt-6">Koleksi Sahara Attire</h1>
+          <p className="mx-auto mt-4 max-w-2xl text-[#645653]">
+            Temukan gaun pernikahan, resepsi, dan busana pelengkap untuk pembelian maupun penyewaan dengan kualitas
+            atelier premium.
           </p>
         </div>
 
-        {/* CATEGORY FILTER */}
-        <div className="flex flex-wrap justify-center gap-8 mb-20">
-
+        <div className="mt-12 flex flex-wrap justify-center gap-3 md:gap-4">
           {categories.map((category) => (
             <button
               key={category.slug}
               onClick={() => setSelectedCategory(category.slug)}
-              className={`relative text-sm uppercase tracking-[0.3em] font-light transition-all duration-300 ${
+              className={`rounded-full border px-4 py-2 text-[10px] uppercase tracking-[0.25em] transition-all duration-300 md:px-5 ${
                 selectedCategory === category.slug
-                  ? "text-black"
-                  : "text-stone-400 hover:text-black"
+                  ? "border-[#a26769] bg-[#a26769] text-white shadow-[0_10px_22px_rgba(162,103,105,0.3)]"
+                  : "border-[#ddcfc9] bg-white/75 text-[#6b5b57] hover:border-[#c6b3ab]"
               }`}
             >
               {category.name}
-
-              {/* Underline indicator */}
-              <span
-                className={`absolute -bottom-2 left-0 h-px bg-[#A26769] transition-all duration-300 ${
-                  selectedCategory === category.slug
-                    ? "w-full"
-                    : "w-0 group-hover:w-full"
-                }`}
-              />
             </button>
           ))}
-
         </div>
 
-        {/* PRODUCT GRID */}
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-6 md:gap-x-10 md:gap-y-20">
-
+        <div className="mt-14 grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-8">
           {filteredProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
-
         </div>
 
-        {/* EMPTY STATE */}
         {filteredProducts.length === 0 && (
-          <div className="text-center py-20">
-            <p className="text-stone-500 font-light">
-              Belum ada koleksi pada kategori ini.
-            </p>
+          <div className="py-20 text-center">
+            <p className="text-[#7d6f69]">Belum ada koleksi pada kategori ini.</p>
           </div>
         )}
-
       </Section>
     </div>
   );

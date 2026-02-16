@@ -2,9 +2,8 @@ import Hero from "@/components/Hero";
 import Section from "@/components/Section";
 import ProductCard from "@/components/ProductCard";
 import { products, categories } from "@/data/products";
-import { BRAND, REVIEWS } from "@/data/constants";
+import { REVIEWS } from "@/data/constants";
 import Link from "next/link";
-import Image from "next/image";
 import ContactSection from "@/components/ContactSection";
 
 export const metadata = {
@@ -35,145 +34,104 @@ export default function Home() {
   };
 
   return (
-    <div>
-      {/* HERO */}
+    <div className="relative">
+      <div className="mesh-accent -left-16 top-60 h-64 w-64" />
+      <div className="mesh-accent -right-16 top-[54rem] h-80 w-80" />
+
       <Hero />
 
-      {/* CATEGORIES */}
       <Section>
-  {/* Header */}
-  <div className="text-center mb-12 md:mb-16 max-w-2xl mx-auto px-4">
-    <h2 className="text-3xl md:text-5xl font-display font-medium text-black">
-      Koleksi Kami
-    </h2>
-    <p className="mt-3 md:mt-4 text-stone-500 font-light text-sm md:text-base">
-      Gaun pernikahan untuk pembelian dan penyewaan.
-    </p>
-  </div>
-
-  {/* Grid */}
-  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 md:gap-10">
-    {mainCategories.map((category) => (
-      <Link
-        key={category.slug}
-        href={`/catalog?category=${category.slug}`}
-        className="group block"
-      >
-        <div className="space-y-3 md:space-y-4">
-
-          {/* Image */}
-          <div className="relative aspect-[4/5] md:aspect-[3/4] overflow-hidden bg-stone-100">
-            <img
-              src={getCategoryImage(category.slug)}
-              alt={category.name}
-              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-            />
-          </div>
-
-          {/* Title */}
-          <div className="flex flex-col items-start gap-2">
-            <h3 className="text-[11px] sm:text-xs md:text-sm tracking-[0.18em] md:tracking-[0.25em] uppercase font-light text-black transition-colors duration-300 group-hover:text-[#A26769] leading-snug">
-              {category.name}
-            </h3>
-
-            {/* Subtle accent line */}
-            <span className="h-px w-6 md:w-0 bg-[#A26769] transition-all duration-300 md:group-hover:w-10" />
-          </div>
-
-        </div>
-      </Link>
-    ))}
-  </div>
-</Section>
-
-
-      {/* FEATURED */}
-      <Section background="blushSoft">
-        <div className="text-center mb-20 max-w-3xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-display font-light text-black mb-6">
-            Gaun Pengantin & Resepsi
-          </h2>
-          <p className="text-stone-600 font-light leading-relaxed">
-            Setiap rancangan diciptakan untuk menghadirkan keanggunan,
-            kemewahan, dan keindahan yang tak terlupakan.
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="section-kicker">Curated Collection</p>
+          <h2 className="section-title mt-6">Koleksi Pilihan Kami</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-[#635551]">
+            Eksplorasi kategori gaun pengantin dan busana acara istimewa dengan sentuhan modern, struktur elegan,
+            dan material premium.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-12">
+        <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-8 lg:grid-cols-5">
+          {mainCategories.map((category) => (
+            <Link
+              key={category.slug}
+              href={`/catalog?category=${category.slug}`}
+              className="group block rounded-[1.4rem] border border-[#e8ddd8] bg-white/75 p-2 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_28px_rgba(67,45,40,0.12)]"
+            >
+              <div className="space-y-3">
+                <div className="relative aspect-[4/5] overflow-hidden rounded-[1rem] bg-[#efe8e4]">
+                  <img
+                    src={getCategoryImage(category.slug)}
+                    alt={category.name}
+                    className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                </div>
+                <div className="px-1 pb-2">
+                  <h3 className="text-[11px] uppercase tracking-[0.24em] text-[#3d2f2d]">{category.name}</h3>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </Section>
+
+      <Section background="blushSoft">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="section-kicker">Best Seller</p>
+          <h2 className="section-title mt-6">Gaun Pengantin & Resepsi</h2>
+          <p className="mt-4 text-[#635551]">
+            Pilihan favorit klien kami untuk momen akad, resepsi, hingga engagement photoshoot.
+          </p>
+        </div>
+
+        <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-8">
           {featuredProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
 
-        <div className="text-center mt-20">
+        <div className="mt-14 text-center">
           <Link href="/catalog" className="btn-secondary">
             Lihat Semua Koleksi
           </Link>
         </div>
       </Section>
 
-      {/* BRAND STORY */}
-      {/* <Section>
-        <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
-          <div className="relative aspect-[4/5] overflow-hidden bg-stone-100">
-            <Image
-              src="https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?w=900&q=80"
-              alt="Bridal Atelier"
-              fill
-              className="object-cover"
-            />
-          </div>
-
-          <div>
-            <p className="text-[10px] tracking-[0.4em] uppercase text-stone-400 mb-6">
-              Filosofi Kami
-            </p>
-            <h2 className="text-4xl md:text-5xl font-display font-light text-black mb-8">
-              Keindahan dalam
-              <br /> Setiap Detail
-            </h2>
-            <p className="text-stone-600 leading-relaxed font-light mb-6">
-              Sahara Attire adalah rumah mode yang berfokus pada busana
-              pernikahan dengan sentuhan modern dan keanggunan klasik. Kami
-              menciptakan gaun yang bukan hanya dikenakan — tetapi dikenang
-              sepanjang hidup.
-            </p>
-            <p className="text-stone-600 leading-relaxed font-light">
-              Setiap desain dibuat dengan perhatian penuh terhadap detail,
-              menggunakan material premium dan pengerjaan yang presisi.
-            </p>
-
-            <div className="mt-10">
-              <Link href="/about" className="btn-secondary">
-                Tentang Kami
-              </Link>
-            </div>
-          </div>
+      <Section>
+        <div className="grid gap-8 md:grid-cols-3">
+          <article className="editorial-card">
+            <p className="section-kicker">01</p>
+            <h3 className="mt-4 font-display text-3xl text-[#1f1816]">Premium Material</h3>
+            <p className="mt-4 text-[#655752]">Satin silk, French lace, dan organza pilihan dengan hasil akhir mewah.</p>
+          </article>
+          <article className="editorial-card">
+            <p className="section-kicker">02</p>
+            <h3 className="mt-4 font-display text-3xl text-[#1f1816]">Tailored Fit</h3>
+            <p className="mt-4 text-[#655752]">Setiap gaun dipersiapkan agar proporsional dan nyaman sepanjang acara.</p>
+          </article>
+          <article className="editorial-card">
+            <p className="section-kicker">03</p>
+            <h3 className="mt-4 font-display text-3xl text-[#1f1816]">Timeless Design</h3>
+            <p className="mt-4 text-[#655752]">Desain kontemporer yang tetap relevan untuk dikenang bertahun-tahun.</p>
+          </article>
         </div>
-      </Section> */}
+      </Section>
 
-      {/* CONTACT / APPOINTMENT */}
       <ContactSection />
 
-      {/* TESTIMONIAL */}
       <Section>
-        <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-black mb-6">
-            Testimoni
-          </h2>
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="section-kicker">Client Experience</p>
+          <h2 className="section-title mt-6">Cerita Klien Sahara</h2>
+        </div>
 
-          <p className="text-stone-500 font-light mb-16">
-            Cerita dari pelanggan Sahara Attire.
-          </p>
-
-          <div className="grid md:grid-cols-2 gap-10">
-            {REVIEWS.map((review) => (
-              <div key={review.id} className="bg-stone-50 p-10 rounded-2xl">
-                <p className="italic text-stone-700 mb-6">"{review.text}"</p>
-                <p className="text-sm font-medium">{review.name}</p>
-              </div>
-            ))}
-          </div>
+        <div className="mt-12 grid gap-6 md:grid-cols-2">
+          {REVIEWS.slice(0, 4).map((review) => (
+            <article key={review.id} className="editorial-card">
+              <p className="text-lg italic leading-relaxed text-[#544744]">"{review.text}"</p>
+              <div className="soft-divider my-5" />
+              <p className="text-xs uppercase tracking-[0.22em] text-[#8a7973]">{review.name}</p>
+            </article>
+          ))}
         </div>
       </Section>
     </div>

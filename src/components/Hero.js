@@ -14,9 +14,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-black">
-
-      {/* Background Image */}
+    <section className="relative flex min-h-screen items-center overflow-hidden bg-[#150f0f] pt-24 md:pt-28">
       <div
         className="absolute inset-0 transition-transform duration-700 ease-out"
         style={{ transform: `translateY(${scrollY * 0.15}px)` }}
@@ -29,62 +27,48 @@ export default function Hero() {
           quality={95}
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-black/65" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent" />
+        <div className="absolute inset-0 bg-[#110d0d]/70" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0f0908] via-[#1b1211]/70 to-transparent" />
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-32 w-full">
-        <div className="max-w-3xl">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 py-24 md:px-10 md:py-32">
+        <div className="max-w-3xl rounded-[2rem] border border-white/25 bg-white/[0.08] p-7 shadow-[0_18px_52px_rgba(0,0,0,0.35)] backdrop-blur-md md:p-10">
+          <p className="text-[10px] uppercase tracking-[0.5em] text-white/65">Bridal Collection 2026</p>
 
-          {/* Micro Label */}
-          <p className="text-[10px] tracking-[0.6em] uppercase text-white/60 mb-16">
-            Bridal Collection 2026 — Sahara Attire
-          </p>
-
-          {/* Brand Name */}
-          <h1 className="leading-[0.85] text-white">
-
-            <span className="block text-6xl md:text-[6rem] lg:text-[7rem] font-display font-medium tracking-tight">
-              Sahara
-            </span>
-
-            <span className="block text-6xl md:text-[6rem] lg:text-[7rem] font-display italic font-medium tracking-tight -mt-4 text-[#A26769]">
+          <h1 className="mt-8 leading-[0.85] text-white">
+            <span className="block font-display text-6xl tracking-tight md:text-[6rem] lg:text-[7rem]">Sahara</span>
+            <span className="-mt-3 block font-display text-6xl tracking-tight text-[#d6a0a1] md:text-[6rem] lg:text-[7rem]">
               Attire
             </span>
-
           </h1>
 
-          {/* Brand Accent Line */}
-          <div className="w-32 h-px bg-gradient-to-r from-[#A26769] to-transparent mt-14 mb-14" />
-
-          {/* Statement */}
-          <p className="text-white/75 text-lg md:text-xl font-light max-w-xl leading-relaxed">
-            Busana pernikahan yang dirancang untuk momen paling sakral dalam hidup —
-            memadukan siluet anggun, material premium,
-            dan detail yang tak lekang oleh waktu.
+          <p className="mt-8 max-w-xl text-base font-light leading-relaxed text-white/80 md:text-lg">
+            Busana pernikahan untuk momen paling berharga Anda, memadukan craftsmanship premium, siluet modern,
+            dan detail elegan yang timeless.
           </p>
 
-          {/* CTA */}
-          <div className="mt-16 flex gap-6 flex-wrap">
+          <div className="mt-10 flex flex-wrap gap-4">
             <Link
               href="/catalog"
-              className="px-12 py-4 bg-[#A26769] text-white uppercase tracking-[0.25em] text-xs transition-all duration-300 hover:bg-[#8E5759]"
+              className="btn-primary"
             >
               Lihat Koleksi
             </Link>
+            <Link href="/about" className="btn-secondary border-white/35 bg-white/15 !text-white hover:!text-white">
+              Tentang Brand
+            </Link>
           </div>
-
+        </div>
+        <div className="mt-10 max-w-xl text-[11px] uppercase tracking-[0.3em] text-white/55">
+          Premium bridal atelier for custom, rental, and ready-to-wear wedding looks
         </div>
       </div>
 
-      {/* Giant Background Text */}
       <div className="absolute bottom-0 right-0 pointer-events-none">
-        <span className="text-white/[0.03] text-[18vw] font-display font-semibold tracking-tight select-none">
+        <span className="select-none font-display text-[18vw] tracking-tight text-white/[0.04]">
           SAHARA
         </span>
       </div>
-
     </section>
   );
 }

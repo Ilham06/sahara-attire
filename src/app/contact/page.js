@@ -30,136 +30,106 @@ export default function Contact() {
 
   return (
     <div className="pt-24 md:pt-32">
-      {/* Header */}
       <Section>
-        <div className="max-w-4xl mx-auto text-center space-y-6 mb-12">
-          <h1 className="text-4xl md:text-6xl font-light tracking-wide text-stone-900">
-            Get in Touch
-          </h1>
-          <p className="text-xl text-stone-600 leading-relaxed">
-            We'd love to hear from you. Whether you have a question about our
-            products, need styling advice, or just want to chat, we're here to
-            help.
+        <div className="mx-auto max-w-4xl text-center">
+          <p className="section-kicker">Contact</p>
+          <h1 className="section-title mt-6">Hubungi Sahara Attire</h1>
+          <p className="mx-auto mt-4 max-w-2xl text-[#665854]">
+            Sampaikan kebutuhan Anda untuk booking fitting, konsultasi desain, maupun informasi ketersediaan koleksi.
           </p>
         </div>
       </Section>
 
-      <Section background="white">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 md:gap-16">
-            {/* Contact Form */}
+      <Section>
+        <div className="mx-auto max-w-6xl">
+          <div className="grid gap-8 md:grid-cols-2 md:gap-12">
             <div>
-              <h2 className="text-2xl font-light tracking-wide mb-6 text-stone-900">
-                Send us a Message
-              </h2>
+              <div className="editorial-card">
+                <h2 className="font-display text-3xl text-[#1f1716]">Kirim Pesan</h2>
 
-              {submitted && (
-                <div className="mb-6 p-4 bg-green-50 border border-green-200 text-green-800">
-                  Thank you for your message! We'll get back to you soon.
-                </div>
-              )}
+                {submitted && (
+                  <div className="mb-6 mt-6 rounded-2xl border border-green-200 bg-green-50 p-4 text-green-800">
+                    Terima kasih, pesan Anda sudah terkirim.
+                  </div>
+                )}
 
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="block text-sm font-medium text-stone-900 mb-2 tracking-wider uppercase"
-                  >
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 border border-stone-300 focus:border-stone-900 focus:outline-none transition-colors"
-                  />
-                </div>
+                <form onSubmit={handleSubmit} className="mt-6 space-y-5">
+                  <div>
+                    <label htmlFor="name" className="mb-2 block text-[11px] uppercase tracking-[0.26em] text-[#7d6d68]">
+                      Nama
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      className="luxury-input"
+                    />
+                  </div>
 
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-stone-900 mb-2 tracking-wider uppercase"
-                  >
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 border border-stone-300 focus:border-stone-900 focus:outline-none transition-colors"
-                  />
-                </div>
+                  <div>
+                    <label htmlFor="email" className="mb-2 block text-[11px] uppercase tracking-[0.26em] text-[#7d6d68]">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className="luxury-input"
+                    />
+                  </div>
 
-                <div>
-                  <label
-                    htmlFor="message"
-                    className="block text-sm font-medium text-stone-900 mb-2 tracking-wider uppercase"
-                  >
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows="6"
-                    className="w-full px-4 py-3 border border-stone-300 focus:border-stone-900 focus:outline-none transition-colors resize-none"
-                  />
-                </div>
+                  <div>
+                    <label
+                      htmlFor="message"
+                      className="mb-2 block text-[11px] uppercase tracking-[0.26em] text-[#7d6d68]"
+                    >
+                      Pesan
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      required
+                      rows="6"
+                      className="luxury-input resize-none"
+                    />
+                  </div>
 
-                <button
-                  type="submit"
-                  className="w-full py-4 bg-stone-900 text-white hover:bg-stone-700 transition-colors tracking-wider text-sm uppercase"
-                >
-                  Send Message
-                </button>
-              </form>
+                  <button type="submit" className="btn-primary w-full">
+                    Kirim Pesan
+                  </button>
+                </form>
+              </div>
             </div>
 
-            {/* Contact Information */}
-            <div className="space-y-8">
-              <div>
-                <h2 className="text-2xl font-light tracking-wide mb-6 text-stone-900">
-                  Contact Information
-                </h2>
-
-                <div className="space-y-6">
+            <div className="space-y-6">
+              <div className="editorial-card">
+                <h2 className="font-display text-3xl text-[#1f1716]">Informasi Kontak</h2>
+                <div className="mt-6 space-y-5">
                   <div>
-                    <h3 className="text-sm font-medium text-stone-900 mb-2 tracking-wider uppercase">
-                      Email
-                    </h3>
-                    <a
-                      href={`mailto:${BRAND.email}`}
-                      className="text-stone-600 hover:text-stone-900 transition-colors"
-                    >
+                    <h3 className="text-[11px] uppercase tracking-[0.26em] text-[#867670]">Email</h3>
+                    <a href={`mailto:${BRAND.email}`} className="mt-2 inline-block text-[#2d2220] hover:text-[#a26769]">
                       {BRAND.email}
                     </a>
                   </div>
 
                   <div>
-                    <h3 className="text-sm font-medium text-stone-900 mb-2 tracking-wider uppercase">
-                      Phone
-                    </h3>
-                    <a
-                      href={`tel:${BRAND.phone}`}
-                      className="text-stone-600 hover:text-stone-900 transition-colors"
-                    >
+                    <h3 className="text-[11px] uppercase tracking-[0.26em] text-[#867670]">Telepon</h3>
+                    <a href={`tel:${BRAND.phone}`} className="mt-2 inline-block text-[#2d2220] hover:text-[#a26769]">
                       {BRAND.phone}
                     </a>
                   </div>
 
                   <div>
-                    <h3 className="text-sm font-medium text-stone-900 mb-2 tracking-wider uppercase">
-                      Address
-                    </h3>
-                    <address className="text-stone-600 not-italic">
+                    <h3 className="text-[11px] uppercase tracking-[0.26em] text-[#867670]">Alamat</h3>
+                    <address className="mt-2 not-italic text-[#2d2220]">
                       {BRAND.address.street}
                       <br />
                       {BRAND.address.city}, {BRAND.address.state}{" "}
@@ -170,29 +140,26 @@ export default function Contact() {
                   </div>
 
                   <div>
-                    <h3 className="text-sm font-medium text-stone-900 mb-2 tracking-wider uppercase">
-                      Store Hours
-                    </h3>
-                    <div className="text-stone-600 space-y-1">
-                      <p>Monday - Friday: {BRAND.hours.weekdays}</p>
-                      <p>Saturday: {BRAND.hours.saturday}</p>
-                      <p>Sunday: {BRAND.hours.sunday}</p>
+                    <h3 className="text-[11px] uppercase tracking-[0.26em] text-[#867670]">Jam Operasional</h3>
+                    <div className="mt-2 space-y-1 text-[#2d2220]">
+                      <p>Senin - Jumat: {BRAND.hours.weekdays}</p>
+                      <p>Sabtu: {BRAND.hours.saturday}</p>
+                      <p>Minggu: {BRAND.hours.sunday}</p>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Social Media */}
-              <div>
-                <h3 className="text-sm font-medium text-stone-900 mb-4 tracking-wider uppercase">
+              <div className="editorial-card">
+                <h3 className="text-[11px] uppercase tracking-[0.28em] text-[#867670]">
                   Follow Us
                 </h3>
-                <div className="flex gap-4">
+                <div className="mt-4 flex gap-4">
                   <a
                     href={BRAND.social.instagram}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-stone-500 hover:text-stone-900 transition-colors"
+                    className="text-[#6f615c] transition-colors hover:text-[#a26769]"
                     aria-label="Instagram"
                   >
                     <svg
@@ -207,7 +174,7 @@ export default function Contact() {
                     href={BRAND.social.facebook}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-stone-500 hover:text-stone-900 transition-colors"
+                    className="text-[#6f615c] transition-colors hover:text-[#a26769]"
                     aria-label="Facebook"
                   >
                     <svg
@@ -222,7 +189,7 @@ export default function Contact() {
                     href={BRAND.social.pinterest}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-stone-500 hover:text-stone-900 transition-colors"
+                    className="text-[#6f615c] transition-colors hover:text-[#a26769]"
                     aria-label="Pinterest"
                   >
                     <svg

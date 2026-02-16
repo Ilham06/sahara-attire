@@ -12,136 +12,127 @@ export default function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
+
   return (
-   <header
-  className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-    scrolled
-      ? "bg-white/95 backdrop-blur-md shadow-sm py-3"
-      : "bg-white/80 backdrop-blur-sm py-4"
-  }`}
->
-  <nav className="max-w-7xl mx-auto px-5 md:px-12">
-    <div className="flex items-center justify-between">
-
-      {/* Logo */}
-      <Link
-        href="/"
-        className="text-lg md:text-2xl font-display text-[#A26769] font-semibold tracking-wide"
-      >
-        {BRAND.name}
-      </Link>
-
-      {/* Desktop Nav */}
-      <div className="hidden md:flex items-center gap-10">
-        {NAVIGATION.map((item) => {
-          const active = pathname === item.path;
-
-          return (
-            <Link
-              key={item.path}
-              href={item.path}
-              className="relative group"
-            >
-              <span
-                className={`text-[11px] tracking-[0.2em] uppercase font-light transition-colors duration-300 ${
-                  active
-                    ? "text-[#A26769]"
-                    : "text-stone-500 group-hover:text-[#A26769]"
-                }`}
-              >
-                {item.name}
-              </span>
-
-              <span
-                className={`absolute -bottom-1 left-0 h-px bg-[#A26769] transition-all duration-300 ${
-                  active ? "w-full" : "w-0 group-hover:w-full"
-                }`}
-              />
-            </Link>
-          );
-        })}
-      </div>
-
-      {/* Mobile Button */}
-      <button
-        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        className="md:hidden relative z-50 w-8 h-8 flex items-center justify-center"
-        aria-label="Toggle menu"
-      >
-        <div className="w-6 h-4 flex flex-col justify-between">
-          <span
-            className={`h-px bg-black transition-all duration-300 ${
-              mobileMenuOpen ? "rotate-45 translate-y-1.5" : ""
-            }`}
-          />
-          <span
-            className={`h-px bg-black transition-all duration-300 ${
-              mobileMenuOpen ? "opacity-0" : ""
-            }`}
-          />
-          <span
-            className={`h-px bg-black transition-all duration-300 ${
-              mobileMenuOpen ? "-rotate-45 -translate-y-1.5" : ""
-            }`}
-          />
-        </div>
-      </button>
-    </div>
-
-    {/* ================= MOBILE PANEL ================= */}
-    <div
-      className={`md:hidden absolute left-0 right-0 bg-white shadow-xl transition-all duration-500 ease-out ${
-        mobileMenuOpen
-          ? "opacity-100 translate-y-0 pointer-events-auto"
-          : "opacity-0 -translate-y-4 pointer-events-none"
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+        scrolled ? "pt-2 md:pt-4" : "pt-4 md:pt-6"
       }`}
-      style={{ top: "100%" }}
     >
-      <div className="px-6 py-10 space-y-8">
-
-        {NAVIGATION.map((item) => {
-          const active = pathname === item.path;
-
-          return (
-            <Link
-              key={item.path}
-              href={item.path}
-              onClick={() => setMobileMenuOpen(false)}
-              className={`block text-base tracking-[0.25em] uppercase font-light transition-colors duration-300 ${
-                active
-                  ? "text-[#A26769]"
-                  : "text-stone-500 hover:text-[#A26769]"
-              }`}
-            >
-              {item.name}
-            </Link>
-          );
-        })}
-
-        {/* Divider */}
-        <div className="h-px bg-stone-200 my-6" />
-
-        {/* WhatsApp CTA */}
-        <a
-          href={`https://wa.me/${BRAND.whatsapp}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block text-center border border-[#A26769] text-[#A26769] py-3 tracking-[0.25em] uppercase text-xs transition-all duration-300 hover:bg-[#A26769] hover:text-white"
-          onClick={() => setMobileMenuOpen(false)}
+      <nav className="mx-auto w-full max-w-7xl px-5 md:px-10">
+        <div
+          className={`rounded-2xl border transition-all duration-500 ${
+            scrolled
+              ? "border-[#eadfd9] bg-white/80 shadow-[0_16px_40px_rgba(48,34,31,0.14)] backdrop-blur-xl"
+              : "border-white/40 bg-white/55 backdrop-blur-lg"
+          }`}
         >
-          Hubungi Kami
-        </a>
+          <div className="flex items-center justify-between px-5 py-3 md:px-7">
+            <Link href="/" className="font-display text-2xl tracking-tight text-[#a26769] md:text-3xl">
+              {BRAND.name}
+            </Link>
 
-      </div>
-    </div>
-  </nav>
-</header>
+            <div className="hidden items-center gap-8 md:flex">
+              {NAVIGATION.map((item) => {
+                const active =
+                  pathname === item.path || (item.path !== "/" && pathname.startsWith(`${item.path}/`));
+                return (
+                  <Link
+                    key={item.path}
+                    href={item.path}
+                    className={`relative text-[11px] uppercase tracking-[0.28em] transition-colors duration-300 ${
+                      active ? "text-[#a26769]" : "text-[#6f605b] hover:text-[#a26769]"
+                    }`}
+                  >
+                    {item.name}
+                    <span
+                      className={`absolute -bottom-2 left-0 h-px bg-[#a26769] transition-all duration-300 ${
+                        active ? "w-full" : "w-0"
+                      }`}
+                    />
+                  </Link>
+                );
+              })}
 
+              <a
+                href={`https://wa.me/${BRAND.whatsapp}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary !px-5 !py-2 !text-[10px]"
+              >
+                Konsultasi
+              </a>
+            </div>
+
+            <button
+              onClick={() => setMobileMenuOpen((prev) => !prev)}
+              className="relative z-50 flex h-10 w-10 items-center justify-center rounded-full border border-[#d8c6be] bg-white/85 md:hidden"
+              aria-label="Toggle menu"
+            >
+              <div className="flex h-4 w-5 flex-col justify-between">
+                <span
+                  className={`h-px bg-[#221918] transition-all duration-300 ${
+                    mobileMenuOpen ? "translate-y-1.5 rotate-45" : ""
+                  }`}
+                />
+                <span
+                  className={`h-px bg-[#221918] transition-all duration-300 ${
+                    mobileMenuOpen ? "opacity-0" : ""
+                  }`}
+                />
+                <span
+                  className={`h-px bg-[#221918] transition-all duration-300 ${
+                    mobileMenuOpen ? "-translate-y-1.5 -rotate-45" : ""
+                  }`}
+                />
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <div
+          className={`overflow-hidden transition-all duration-500 md:hidden ${
+            mobileMenuOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0"
+          }`}
+        >
+          <div className="mt-3 rounded-2xl border border-[#eadfd9] bg-white/92 p-5 shadow-[0_14px_34px_rgba(42,29,27,0.16)] backdrop-blur-xl">
+            <div className="space-y-5">
+              {NAVIGATION.map((item) => {
+                const active =
+                  pathname === item.path || (item.path !== "/" && pathname.startsWith(`${item.path}/`));
+                return (
+                  <Link
+                    key={item.path}
+                    href={item.path}
+                    className={`block text-sm uppercase tracking-[0.25em] ${
+                      active ? "text-[#a26769]" : "text-[#685a55]"
+                    }`}
+                  >
+                    {item.name}
+                  </Link>
+                );
+              })}
+            </div>
+            <a
+              href={`https://wa.me/${BRAND.whatsapp}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary mt-6 w-full !py-3 !text-[10px]"
+            >
+              Hubungi WhatsApp
+            </a>
+          </div>
+        </div>
+      </nav>
+    </header>
   );
 }
