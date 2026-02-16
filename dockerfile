@@ -20,6 +20,7 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 ENV PORT=3007
+ENV NEXT_IMAGE_UNOPTIMIZED=true
 
 # Copy only necessary files
 COPY --from=builder /app/package.json ./package.json
