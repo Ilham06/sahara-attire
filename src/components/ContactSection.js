@@ -2,14 +2,23 @@
 
 import { useEffect, useState } from "react"
 import { Instagram, MessageCircle, Music, MapPin } from "lucide-react"
-import { getContact } from "@/lib/dataStore"
+import { contact } from "@/lib/api"
 
 export default function ContactSection() {
   const [brand, setBrand] = useState(null)
 
   useEffect(() => {
-    setBrand(getContact())
+    loadData()
   }, [])
+
+  const loadData = async () => {
+    try {
+      const data = await contact.get()
+      setBrand(data)
+    } catch (error) {
+      console.error("Error loading contact:", error)
+    }
+  }
 
   if (!brand) return null
 

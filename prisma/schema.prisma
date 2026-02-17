@@ -1,0 +1,138 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User model for authentication
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String   // hashed password
+  email     String?  @unique
+  role      String   @default("admin")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+// Category model
+model Category {
+  id        Int       @id @default(autoincrement())
+  name      String
+  slug      String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  products  Product[]
+
+  @@map("categories")
+}
+
+// Product model
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String
+  slug        String   @unique
+  categoryId  Int
+  category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  price       Int
+  description String   @db.Text
+  images      String[] // Array of file paths
+  sizes       String[]
+  colors      String[]
+  featured    Boolean  @default(false)
+
+  // Product details as JSON
+  fabric      String?
+  care        String?
+  fit         String?
+  origin      String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([categoryId])
+  @@index([featured])
+  @@map("products")
+}
+
+// Review model
+model Review {
+  id        Int      @id @default(autoincrement())
+  name      String
+  location  String
+  rating    Int      @default(5)
+  text      String   @db.Text
+  avatar    String   // Could be initials or file path
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("reviews")
+}
+
+// Contact/Brand Information (single row)
+model Contact {
+  id               Int      @id @default(1)
+  name             String
+  tagline          String
+  description      String   @db.Text
+  email            String
+  phone            String
+  whatsapp         String
+  whatsappDisplay  String
+
+  // Address as JSON fields
+  addressStreet    String?
+  addressCity      String?
+  addressState     String?
+  addressZip       String?
+  addressCountry   String?
+
+  // Social media links
+  socialInstagram  String?
+  socialTiktok     String?
+  socialFacebook   String?
+  socialPinterest  String?
+  socialTwitter    String?
+
+  // Business hours
+  hoursWeekdays    String?
+  hoursSaturday    String?
+  hoursSunday      String?
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("contacts")
+}
+
+// Copywriting/Content model (single row)
+model Copywriting {
+  id        Int      @id @default(1)
+  content   Json     // Store all copywriting as JSON
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("copywriting")
+}
+
+// File Upload tracking (optional, for managing uploaded files)
+model Upload {
+  id          Int      @id @default(autoincrement())
+  filename    String
+  originalName String
+  mimeType    String
+  size        Int
+  path        String
+  category    String?  // e.g., 'product', 'category', 'header'
+  createdAt   DateTime @default(now())
+
+  @@map("uploads")
+}

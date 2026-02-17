@@ -4,25 +4,44 @@ import { useEffect, useState } from "react";
 import Hero from "@/components/Hero";
 import Section from "@/components/Section";
 import ProductCard from "@/components/ProductCard";
-import { getProducts, getCategories, getReviews, getCopywriting } from "@/lib/dataStore";
+import { products, categories, reviews, copywriting } from "@/lib/api";
 import Link from "next/link";
 import ContactSection from "@/components/ContactSection";
 
 export default function Home() {
-  const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [reviews, setReviews] = useState([]);
+  const [productList, setProductList] = useState([]);
+  const [categoryList, setCategoryList] = useState([]);
+  const [reviewList, setReviewList] = useState([]);
   const [copy, setCopy] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setProducts(getProducts());
-    setCategories(getCategories());
-    setReviews(getReviews());
-    setCopy(getCopywriting());
+    loadData();
   }, []);
 
-  const featuredProducts = products.filter((p) => p.featured);
-  const mainCategories = categories.filter((c) => c.slug !== "all");
+  const loadData = async () => {
+    try {
+      setLoading(true);
+      const [productsData, categoriesData, reviewsData, copywritingData] = await Promise.all([
+        products.getAll(),
+        categories.getAll(),
+        reviews.getAll(),
+        copywriting.get(),
+      ]);
+
+      setProductList(productsData);
+      setCategoryList(categoriesData);
+      setReviewList(reviewsData);
+      setCopy(copywritingData);
+    } catch (error) {
+      console.error("Error loading data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const featuredProducts = productList.filter((p) => p.featured);
+  const mainCategories = categoryList.filter((c) => c.slug !== "all");
 
   const getCategoryImage = (slug) => {
     switch (slug) {
@@ -41,7 +60,13 @@ export default function Home() {
     }
   };
 
-  if (!copy) return null;
+  if (loading || !copy) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="text-center text-[#8a7973]">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative overflow-x-clip">
@@ -50,19 +75,20 @@ export default function Home() {
 
       <Hero />
 
+      {/* Categories Section */}
       <Section>
         <div className="mx-auto max-w-3xl text-center">
-          <p className="section-kicker">{copy.collection.kicker}</p>
-          <h2 className="section-title mt-6">{copy.collection.title}</h2>
+          <p className="section-kicker">{copy.collection?.kicker}</p>
+          <h2 className="section-title mt-6">{copy.collection?.title}</h2>
           <p className="mx-auto mt-4 max-w-2xl text-[#635551]">
-            {copy.collection.description}
+            {copy.collection?.description}
           </p>
         </div>
 
         <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-8 lg:grid-cols-4">
           {mainCategories.map((category) => (
             <Link
-              key={category.slug}
+              key={category.id}
               href={`/catalog?category=${category.slug}`}
               className="group block rounded-[1.4rem] border border-[#e8ddd8] bg-white/75 p-2 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_28px_rgba(67,45,40,0.12)]"
             >
@@ -83,12 +109,13 @@ export default function Home() {
         </div>
       </Section>
 
+      {/* Featured Products Section */}
       <Section background="blushSoft">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="section-kicker">{copy.bestSeller.kicker}</p>
-          <h2 className="section-title mt-6">{copy.bestSeller.title}</h2>
+          <p className="section-kicker">{copy.bestSeller?.kicker}</p>
+          <h2 className="section-title mt-6">{copy.bestSeller?.title}</h2>
           <p className="mt-4 text-[#635551]">
-            {copy.bestSeller.description}
+            {copy.bestSeller?.description}
           </p>
         </div>
 
@@ -105,9 +132,10 @@ export default function Home() {
         </div>
       </Section>
 
+      {/* Features Section */}
       <Section>
         <div className="grid gap-8 md:grid-cols-3">
-          {copy.features.map((feat) => (
+          {copy.features?.map((feat) => (
             <article key={feat.number} className="editorial-card">
               <p className="section-kicker">{feat.number}</p>
               <h3 className="mt-4 font-display text-3xl text-[#1f1816]">{feat.title}</h3>
@@ -119,14 +147,15 @@ export default function Home() {
 
       <ContactSection />
 
+      {/* Reviews Section */}
       <Section>
         <div className="mx-auto max-w-3xl text-center">
-          <p className="section-kicker">{copy.reviews.kicker}</p>
-          <h2 className="section-title mt-6">{copy.reviews.title}</h2>
+          <p className="section-kicker">{copy.reviews?.kicker}</p>
+          <h2 className="section-title mt-6">{copy.reviews?.title}</h2>
         </div>
 
         <div className="mt-12 grid gap-6 md:grid-cols-2">
-          {reviews.slice(0, 4).map((review) => (
+          {reviewList.slice(0, 4).map((review) => (
             <article key={review.id} className="editorial-card">
               <p className="text-lg italic leading-relaxed text-[#544744]">"{review.text}"</p>
               <div className="soft-divider my-5" />

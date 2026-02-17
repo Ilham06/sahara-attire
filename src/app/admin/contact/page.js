@@ -1,25 +1,51 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getContact, setContact } from "@/lib/dataStore";
+import { contact } from "@/lib/api";
 import { Save } from "lucide-react";
 
 export default function ContactAdmin() {
   const [form, setForm] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
-    setForm(getContact());
+    load();
   }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setContact(form);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
+  const load = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const data = await contact.get();
+      setForm(data);
+    } catch (err) {
+      setError(err.message);
+      console.error("Load error:", err);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  if (!form) return null;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    try {
+      await contact.update(form);
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2000);
+    } catch (err) {
+      setError(err.message);
+      alert(`Error: ${err.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (!form) return loading ? <div className="text-center text-[#8a7973]">Loading...</div> : null;
 
   return (
     <div>
@@ -28,6 +54,12 @@ export default function ContactAdmin() {
         {saved && <span className="text-sm text-green-600">Tersimpan!</span>}
       </div>
 
+      {error && (
+        <div className="mt-4 rounded-lg bg-red-50 p-4 text-sm text-red-600">
+          Error: {error}
+        </div>
+      )}
+
       <form onSubmit={handleSubmit} className="mt-6 space-y-6">
         {/* Brand Info */}
         <div className="rounded-2xl border border-[#e6dbd6] bg-white p-6">
@@ -35,16 +67,16 @@ export default function ContactAdmin() {
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <label className="block text-xs uppercase tracking-[0.15em] text-[#8a7973] mb-1">Nama Brand</label>
-              <input className="luxury-input" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+              <input className="luxury-input" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} disabled={loading} />
             </div>
             <div>
               <label className="block text-xs uppercase tracking-[0.15em] text-[#8a7973] mb-1">Tagline</label>
-              <input className="luxury-input" value={form.tagline} onChange={(e) => setForm({ ...form, tagline: e.target.value })} />
+              <input className="luxury-input" value={form.tagline} onChange={(e) => setForm({ ...form, tagline: e.target.value })} disabled={loading} />
             </div>
           </div>
           <div className="mt-4">
             <label className="block text-xs uppercase tracking-[0.15em] text-[#8a7973] mb-1">Deskripsi</label>
-            <textarea className="luxury-input min-h-[80px]" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
+            <textarea className="luxury-input min-h-[80px]" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} disabled={loading} />
           </div>
         </div>
 
@@ -134,8 +166,8 @@ export default function ContactAdmin() {
           </div>
         </div>
 
-        <button type="submit" className="btn-primary flex items-center gap-2">
-          <Save size={16} /> Simpan Perubahan
+        <button type="submit" className="btn-primary flex items-center gap-2" disabled={loading}>
+          <Save size={16} /> {loading ? "Menyimpan..." : "Simpan Perubahan"}
         </button>
       </form>
     </div>

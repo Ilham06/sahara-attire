@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { getCopywriting } from "@/lib/dataStore";
+import { copywriting } from "@/lib/api";
 
 export default function Hero() {
   const [scrollY, setScrollY] = useState(0);
@@ -12,9 +12,20 @@ export default function Hero() {
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener("scroll", handleScroll);
-    setCopy(getCopywriting());
+
+    loadData();
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const loadData = async () => {
+    try {
+      const data = await copywriting.get();
+      setCopy(data);
+    } catch (error) {
+      console.error("Error loading copywriting:", error);
+    }
+  };
 
   const hero = copy?.hero;
 

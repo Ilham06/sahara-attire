@@ -2,14 +2,27 @@
 
 import { useState, useEffect } from "react";
 import Section from "@/components/Section";
-import { getContact } from "@/lib/dataStore";
+import { contact } from "@/lib/api";
 
 export default function Contact() {
   const [brand, setBrand] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setBrand(getContact());
+    loadData();
   }, []);
+
+  const loadData = async () => {
+    try {
+      setLoading(true);
+      const data = await contact.get();
+      setBrand(data);
+    } catch (error) {
+      console.error("Error loading contact:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const [formData, setFormData] = useState({
     name: "",
@@ -34,7 +47,13 @@ export default function Contact() {
     });
   };
 
-  if (!brand) return null;
+  if (loading || !brand) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="text-center text-[#8a7973]">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="pt-24 md:pt-32">

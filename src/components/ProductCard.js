@@ -26,7 +26,7 @@ export default function ProductCard({ product }) {
 
         <div className="space-y-2 px-1">
           <p className="text-[10px] uppercase tracking-[0.3em] text-[#8c7d76]">
-            {product.category}
+            {typeof product.category === 'string' ? product.category : product.category?.name}
           </p>
 
           <h3 className="font-display text-lg leading-snug text-[#191313] transition-colors duration-300 group-hover:text-[#a26769] md:text-[1.35rem]">

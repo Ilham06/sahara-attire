@@ -1,3 +1,60 @@
+# Example: Migrating Categories Page to Prisma API
+
+This is a complete example showing how to migrate the Categories admin page from localStorage to the Prisma API.
+
+## Before (Using localStorage)
+
+**Original:** `src/app/admin/categories/page.js`
+
+```javascript
+"use client";
+
+import { useEffect, useState } from "react";
+import { getCategories, addCategory, updateCategory, deleteCategory } from "@/lib/dataStore";
+import { Plus, Pencil, Trash2, X } from "lucide-react";
+
+export default function CategoriesAdmin() {
+  const [categories, setCategories] = useState([]);
+  const [editing, setEditing] = useState(null);
+  const [form, setForm] = useState({ name: "", slug: "" });
+  const [showForm, setShowForm] = useState(false);
+
+  const load = () => setCategories(getCategories());
+  useEffect(() => { load(); }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = {
+      name: form.name,
+      slug: form.slug || form.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""),
+    };
+
+    if (editing) {
+      updateCategory(editing, data);
+    } else {
+      addCategory(data);
+    }
+    setShowForm(false);
+    load();
+  };
+
+  const handleDelete = (slug) => {
+    if (slug === "all") return;
+    if (confirm("Hapus kategori ini?")) {
+      deleteCategory(slug);
+      load();
+    }
+  };
+
+  // ... rest of component
+}
+```
+
+## After (Using Prisma API)
+
+**Updated:** `src/app/admin/categories/page.js`
+
+```javascript
 "use client";
 
 import { useEffect, useState } from "react";
@@ -12,6 +69,7 @@ export default function CategoriesAdmin() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  // Load categories from API
   const load = async () => {
     try {
       setLoading(true);
@@ -37,7 +95,7 @@ export default function CategoriesAdmin() {
   };
 
   const openEdit = (cat) => {
-    setEditing(cat.id);
+    setEditing(cat.id); // Changed from cat.slug to cat.id
     setForm({ name: cat.name, slug: cat.slug });
     setShowForm(true);
   };
@@ -49,7 +107,7 @@ export default function CategoriesAdmin() {
         await categories.delete(id);
         await load();
       } catch (err) {
-        alert(err.message);
+        alert(err.message); // Will show "Cannot delete category with X products"
       } finally {
         setLoading(false);
       }
@@ -96,18 +154,21 @@ export default function CategoriesAdmin() {
         </button>
       </div>
 
+      {/* Error Display */}
       {error && (
         <div className="mt-4 rounded-lg bg-red-50 p-4 text-sm text-red-600">
           Error: {error}
         </div>
       )}
 
+      {/* Loading State */}
       {loading && !showForm && (
         <div className="mt-6 text-center text-[#8a7973]">
           Loading...
         </div>
       )}
 
+      {/* Categories Table */}
       <div className="mt-6 overflow-x-auto rounded-2xl border border-[#e6dbd6] bg-white">
         <table className="w-full text-sm">
           <thead>
@@ -156,6 +217,7 @@ export default function CategoriesAdmin() {
         </table>
       </div>
 
+      {/* Form Modal */}
       {showForm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-4">
           <div className="w-full max-w-md rounded-2xl border border-[#e6dbd6] bg-white p-8">
@@ -228,3 +290,188 @@ export default function CategoriesAdmin() {
     </div>
   );
 }
+```
+
+## Key Changes
+
+### 1. **Import Statement**
+```javascript
+// Before
+import { getCategories, addCategory, updateCategory, deleteCategory } from "@/lib/dataStore";
+
+// After
+import { categories } from "@/lib/api";
+```
+
+### 2. **State Management**
+```javascript
+// After - Added loading and error states
+const [loading, setLoading] = useState(false);
+const [error, setError] = useState(null);
+```
+
+### 3. **Data Loading**
+```javascript
+// Before
+const load = () => setCategories(getCategories());
+
+// After - Async with error handling
+const load = async () => {
+  try {
+    setLoading(true);
+    setError(null);
+    const data = await categories.getAll();
+    setCategoryList(data);
+  } catch (err) {
+    setError(err.message);
+  } finally {
+    setLoading(false);
+  }
+};
+```
+
+### 4. **Create/Update**
+```javascript
+// Before
+if (editing) {
+  updateCategory(editing, data);
+} else {
+  addCategory(data);
+}
+setShowForm(false);
+load();
+
+// After - Async with error handling
+try {
+  if (editing) {
+    await categories.update(editing, data);
+  } else {
+    await categories.create(data);
+  }
+  setShowForm(false);
+  await load();
+} catch (err) {
+  setError(err.message);
+  alert(`Error: ${err.message}`);
+}
+```
+
+### 5. **Delete**
+```javascript
+// Before
+const handleDelete = (slug) => {
+  if (confirm("Hapus kategori ini?")) {
+    deleteCategory(slug);
+    load();
+  }
+};
+
+// After - Async with error handling
+const handleDelete = async (id, name) => {
+  if (confirm(`Hapus kategori "${name}"?`)) {
+    try {
+      setLoading(true);
+      await categories.delete(id);
+      await load();
+    } catch (err) {
+      alert(err.message); // Shows "Cannot delete category with X products"
+    } finally {
+      setLoading(false);
+    }
+  }
+};
+```
+
+### 6. **ID vs Slug**
+```javascript
+// Before - Used slug as identifier
+const openEdit = (cat) => {
+  setEditing(cat.slug);
+  // ...
+};
+
+// After - Use database ID
+const openEdit = (cat) => {
+  setEditing(cat.id);
+  // ...
+};
+```
+
+### 7. **UI Enhancements**
+```javascript
+// Added product count display
+<td className="px-6 py-4 text-[#655752]">
+  {cat._count?.products || 0} products
+</td>
+
+// Added loading state
+{loading && !showForm && (
+  <div className="mt-6 text-center text-[#8a7973]">
+    Loading...
+  </div>
+)}
+
+// Added error display
+{error && (
+  <div className="mt-4 rounded-lg bg-red-50 p-4 text-sm text-red-600">
+    Error: {error}
+  </div>
+)}
+
+// Added empty state
+{!loading && categoryList.length === 0 && (
+  <tr>
+    <td colSpan="4" className="px-6 py-8 text-center text-[#8a7973]">
+      Belum ada kategori
+    </td>
+  </tr>
+)}
+
+// Disabled buttons during loading
+<button disabled={loading}>
+  {loading ? "Saving..." : "Save"}
+</button>
+```
+
+## Summary of Changes
+
+| Aspect | Before | After |
+|--------|--------|-------|
+| **Data Source** | localStorage | PostgreSQL via Prisma |
+| **Operations** | Synchronous | Async/await |
+| **Error Handling** | None | Try/catch with user feedback |
+| **Loading States** | None | Loading indicators |
+| **Identifiers** | Slug strings | Database IDs (integers) |
+| **Validation** | Client-side only | Server-side validation |
+| **Product Count** | Not available | Included in response |
+| **Delete Protection** | Manual check | Server enforces (prevents deleting categories with products) |
+
+## Testing the Migration
+
+1. **Start the dev server:**
+   ```bash
+   npm run dev
+   ```
+
+2. **Navigate to:**
+   ```
+   http://localhost:3000/admin/categories
+   ```
+
+3. **Test operations:**
+   - ✅ Create new category
+   - ✅ Edit existing category
+   - ✅ Try to delete category with products (should fail with error message)
+   - ✅ Delete empty category
+   - ✅ Check loading states
+   - ✅ Check error handling (try creating duplicate slug)
+
+## Next Steps
+
+Apply the same migration pattern to other admin pages:
+- Products page
+- Reviews page
+- Contact page
+- Copywriting page
+
+See [MIGRATION_GUIDE.md](./MIGRATION_GUIDE.md) for more examples and patterns.
