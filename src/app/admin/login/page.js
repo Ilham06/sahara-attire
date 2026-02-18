@@ -18,7 +18,8 @@ export default function AdminLogin() {
 
     try {
       const { user } = await auth.login(username, password);
-      localStorage.setItem("user", JSON.stringify(user));
+      // Store session with the correct key that isAuthenticated() expects
+      localStorage.setItem("sahara_admin_session", JSON.stringify({ user: user.username, loggedIn: true }));
       router.push("/admin");
     } catch (err) {
       setError(err.message || "Username atau password salah");
