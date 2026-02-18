@@ -10,7 +10,7 @@ const emptyProduct = {
   categoryId: "",
   price: 0,
   description: "",
-  images: ["", ""],
+  images: ["", "", "", "", ""],
   sizes: ["Custom"],
   colors: [""],
   featured: false,
@@ -51,7 +51,7 @@ export default function ProductsAdmin() {
 
   const openAdd = () => {
     setEditing(null);
-    setForm({ ...emptyProduct, images: ["", ""], colors: [""] });
+    setForm({ ...emptyProduct, images: ["", "", "", "", ""], colors: [""] });
     setShowForm(true);
   };
 
@@ -250,13 +250,30 @@ export default function ProductsAdmin() {
                 <textarea className="luxury-input min-h-[80px]" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} required disabled={loading} />
               </div>
 
-              <div>
-                <label className="block text-xs uppercase tracking-[0.15em] text-[#8a7973] mb-1">Image URL 1</label>
-                <input className="luxury-input" value={form.images[0] || ""} onChange={(e) => { const imgs = [...form.images]; imgs[0] = e.target.value; setForm({ ...form, images: imgs }); }} disabled={loading} />
-              </div>
-              <div>
-                <label className="block text-xs uppercase tracking-[0.15em] text-[#8a7973] mb-1">Image URL 2</label>
-                <input className="luxury-input" value={form.images[1] || ""} onChange={(e) => { const imgs = [...form.images]; imgs[1] = e.target.value; setForm({ ...form, images: imgs }); }} disabled={loading} />
+              <div className="space-y-3">
+                <h4 className="text-xs font-semibold uppercase tracking-[0.15em] text-[#8a7973]">Product Images (Max 5)</h4>
+                <div className="grid gap-3">
+                  <div>
+                    <label className="block text-xs uppercase tracking-[0.15em] text-[#8a7973] mb-1">Image URL 1</label>
+                    <input className="luxury-input" value={form.images[0] || ""} onChange={(e) => { const imgs = [...form.images]; imgs[0] = e.target.value; setForm({ ...form, images: imgs }); }} disabled={loading} />
+                  </div>
+                  <div>
+                    <label className="block text-xs uppercase tracking-[0.15em] text-[#8a7973] mb-1">Image URL 2</label>
+                    <input className="luxury-input" value={form.images[1] || ""} onChange={(e) => { const imgs = [...form.images]; imgs[1] = e.target.value; setForm({ ...form, images: imgs }); }} disabled={loading} />
+                  </div>
+                  <div>
+                    <label className="block text-xs uppercase tracking-[0.15em] text-[#8a7973] mb-1">Image URL 3 (optional)</label>
+                    <input className="luxury-input" value={form.images[2] || ""} onChange={(e) => { const imgs = [...form.images]; imgs[2] = e.target.value; setForm({ ...form, images: imgs }); }} disabled={loading} />
+                  </div>
+                  <div>
+                    <label className="block text-xs uppercase tracking-[0.15em] text-[#8a7973] mb-1">Image URL 4 (optional)</label>
+                    <input className="luxury-input" value={form.images[3] || ""} onChange={(e) => { const imgs = [...form.images]; imgs[3] = e.target.value; setForm({ ...form, images: imgs }); }} disabled={loading} />
+                  </div>
+                  <div>
+                    <label className="block text-xs uppercase tracking-[0.15em] text-[#8a7973] mb-1">Image URL 5 (optional)</label>
+                    <input className="luxury-input" value={form.images[4] || ""} onChange={(e) => { const imgs = [...form.images]; imgs[4] = e.target.value; setForm({ ...form, images: imgs }); }} disabled={loading} />
+                  </div>
+                </div>
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">

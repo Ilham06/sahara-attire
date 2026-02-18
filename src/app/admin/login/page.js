@@ -2,20 +2,28 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { login } from "@/lib/auth";
+import { auth } from "@/lib/api";
 
 export default function AdminLogin() {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (login(username, password)) {
+    setLoading(true);
+    setError("");
+
+    try {
+      const { user } = await auth.login(username, password);
+      localStorage.setItem("user", JSON.stringify(user));
       router.push("/admin");
-    } else {
-      setError("Username atau password salah");
+    } catch (err) {
+      setError(err.message || "Username atau password salah");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -43,6 +51,7 @@ export default function AdminLogin() {
                 onChange={(e) => setUsername(e.target.value)}
                 className="luxury-input"
                 required
+                disabled={loading}
               />
             </div>
 
@@ -54,11 +63,12 @@ export default function AdminLogin() {
                 onChange={(e) => setPassword(e.target.value)}
                 className="luxury-input"
                 required
+                disabled={loading}
               />
             </div>
 
-            <button type="submit" className="btn-primary w-full justify-center mt-6">
-              Login
+            <button type="submit" className="btn-primary w-full justify-center mt-6" disabled={loading}>
+              {loading ? "Loading..." : "Login"}
             </button>
           </form>
         </div>

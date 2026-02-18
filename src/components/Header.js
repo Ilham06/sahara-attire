@@ -69,14 +69,14 @@ export default function Header() {
                 );
               })}
 
-              <a
+              {/* <a
                 href={`https://wa.me/${brand.whatsapp}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary !px-5 !py-2 !text-[10px]"
               >
                 Konsultasi
-              </a>
+              </a> */}
             </div>
 
             <button

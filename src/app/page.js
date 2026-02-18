@@ -95,7 +95,7 @@ export default function Home() {
               <div className="space-y-3">
                 <div className="relative aspect-[4/5] overflow-hidden rounded-[1rem] bg-[#efe8e4]">
                   <img
-                    src={getCategoryImage(category.slug)}
+                    src={category.image || getCategoryImage(category.slug)}
                     alt={category.name}
                     className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />

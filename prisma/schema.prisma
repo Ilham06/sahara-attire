@@ -28,6 +28,7 @@ model Category {
   id        Int       @id @default(autoincrement())
   name      String
   slug      String    @unique
+  image     String?   // Category image path
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   products  Product[]

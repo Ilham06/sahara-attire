@@ -7,7 +7,7 @@ import { Plus, Pencil, Trash2, X } from "lucide-react";
 export default function CategoriesAdmin() {
   const [categoryList, setCategoryList] = useState([]);
   const [editing, setEditing] = useState(null);
-  const [form, setForm] = useState({ name: "", slug: "" });
+  const [form, setForm] = useState({ name: "", slug: "", image: "" });
   const [showForm, setShowForm] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -32,13 +32,13 @@ export default function CategoriesAdmin() {
 
   const openAdd = () => {
     setEditing(null);
-    setForm({ name: "", slug: "" });
+    setForm({ name: "", slug: "", image: "" });
     setShowForm(true);
   };
 
   const openEdit = (cat) => {
     setEditing(cat.id);
-    setForm({ name: cat.name, slug: cat.slug });
+    setForm({ name: cat.name, slug: cat.slug, image: cat.image || "" });
     setShowForm(true);
   };
 
@@ -65,6 +65,7 @@ export default function CategoriesAdmin() {
       const data = {
         name: form.name,
         slug: form.slug || form.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""),
+        image: form.image || null,
       };
 
       if (editing) {
@@ -194,6 +195,18 @@ export default function CategoriesAdmin() {
                   value={form.slug}
                   onChange={(e) => setForm({ ...form, slug: e.target.value })}
                   placeholder="auto-generated"
+                  disabled={loading}
+                />
+              </div>
+              <div>
+                <label className="block text-xs uppercase tracking-[0.15em] text-[#8a7973] mb-1">
+                  Image URL (optional)
+                </label>
+                <input
+                  className="luxury-input"
+                  value={form.image}
+                  onChange={(e) => setForm({ ...form, image: e.target.value })}
+                  placeholder="Category image URL"
                   disabled={loading}
                 />
               </div>

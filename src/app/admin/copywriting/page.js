@@ -1,25 +1,51 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getCopywriting, setCopywriting } from "@/lib/dataStore";
+import { copywriting } from "@/lib/api";
 import { Save } from "lucide-react";
 
 export default function CopywritingAdmin() {
   const [form, setForm] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
-    setForm(getCopywriting());
+    load();
   }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setCopywriting(form);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
+  const load = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const data = await copywriting.get();
+      setForm(data);
+    } catch (err) {
+      setError(err.message);
+      console.error("Load error:", err);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  if (!form) return null;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    try {
+      await copywriting.updateAll(form);
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2000);
+    } catch (err) {
+      setError(err.message);
+      alert(`Error: ${err.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (!form) return loading ? <div className="text-center text-[#8a7973]">Loading...</div> : null;
 
   const updateNested = (section, key, value) => {
     setForm({ ...form, [section]: { ...form[section], [key]: value } });
@@ -43,6 +69,12 @@ export default function CopywritingAdmin() {
         <h1 className="text-2xl font-semibold text-[#181313]">Copywriting</h1>
         {saved && <span className="text-sm text-green-600">Tersimpan!</span>}
       </div>
+
+      {error && (
+        <div className="mt-4 rounded-lg bg-red-50 p-4 text-sm text-red-600">
+          Error: {error}
+        </div>
+      )}
 
       <form onSubmit={handleSubmit} className="mt-6 space-y-6">
         {/* Hero Section */}
@@ -230,8 +262,8 @@ export default function CopywritingAdmin() {
           </div>
         </div>
 
-        <button type="submit" className="btn-primary flex items-center gap-2">
-          <Save size={16} /> Simpan Perubahan
+        <button type="submit" className="btn-primary flex items-center gap-2" disabled={loading}>
+          <Save size={16} /> {loading ? "Menyimpan..." : "Simpan Perubahan"}
         </button>
       </form>
     </div>

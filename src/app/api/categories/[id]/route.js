@@ -31,7 +31,7 @@ export async function PUT(request, { params }) {
     const { id: paramId } = await params;
     const id = parseInt(paramId);
     const body = await request.json();
-    const { name, slug } = body;
+    const { name, slug, image } = body;
 
     // Check if category exists
     const existingCategory = await prisma.category.findUnique({
@@ -58,6 +58,7 @@ export async function PUT(request, { params }) {
       data: {
         name,
         slug,
+        image: image !== undefined ? (image || null) : undefined,
       },
     });
 

@@ -26,7 +26,7 @@ export async function GET() {
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { name, slug } = body;
+    const { name, slug, image } = body;
 
     // Validate required fields
     if (!name || !slug) {
@@ -46,6 +46,7 @@ export async function POST(request) {
       data: {
         name,
         slug,
+        image: image || null,
       },
     });
 

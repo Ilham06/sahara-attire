@@ -41,9 +41,9 @@ export default function ContactSection() {
             Jadwalkan fitting pribadi bersama tim kami untuk mengetahui koleksi terbaru, opsi custom, dan layanan
             rental premium.
           </p>
-          <a href={`https://wa.me/${brand.whatsapp}`} target="_blank" rel="noopener noreferrer" className="btn-primary mt-9">
+          {/* <a href={`https://wa.me/${brand.whatsapp}`} target="_blank" rel="noopener noreferrer" className="btn-primary mt-9">
             Booking Appointment
-          </a>
+          </a> */}
         </div>
 
         <div className="editorial-card space-y-6">

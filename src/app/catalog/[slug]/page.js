@@ -6,24 +6,47 @@ import Image from "next/image";
 import Link from "next/link";
 import Section from "@/components/Section";
 import ProductCard from "@/components/ProductCard";
-import { getProducts, getContact } from "@/lib/dataStore";
+import { products, contact } from "@/lib/api";
 
 export default function ProductDetail() {
   const params = useParams();
-  const [products, setProducts] = useState([]);
+  const [productList, setProductList] = useState([]);
   const [brand, setBrand] = useState(null);
-
-  useEffect(() => {
-    setProducts(getProducts());
-    setBrand(getContact());
-  }, []);
-
-  const product = products.find((p) => p.slug === params.slug);
-
+  const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(0);
   const [previewOpen, setPreviewOpen] = useState(false);
 
-  if (!brand || products.length === 0) return null;
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const loadData = async () => {
+    try {
+      setLoading(true);
+      const [productsData, contactData] = await Promise.all([
+        products.getAll(),
+        contact.get(),
+      ]);
+      setProductList(productsData);
+      setBrand(contactData);
+    } catch (error) {
+      console.error("Load error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const product = productList.find((p) => p.slug === params.slug);
+
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center pt-24 md:pt-32">
+        <p className="text-[#8a7973]">Loading...</p>
+      </div>
+    );
+  }
+
+  if (!brand || productList.length === 0) return null;
 
   if (!product) {
     return (
@@ -33,8 +56,8 @@ export default function ProductDetail() {
     );
   }
 
-  const relatedProducts = products
-    .filter((p) => p.category === product.category && p.id !== product.id)
+  const relatedProducts = productList
+    .filter((p) => p.categoryId === product.categoryId && p.id !== product.id)
     .slice(0, 3);
 
   return (
@@ -89,7 +112,7 @@ export default function ProductDetail() {
           <div className="editorial-card space-y-7">
             <div>
               <p className="mb-3 text-[10px] uppercase tracking-[0.32em] text-[#8d7f78]">
-                {product.category}
+                {product.category?.name}
               </p>
 
               <h1 className="font-display text-4xl text-[#171211]">{product.name}</h1>
@@ -106,16 +129,16 @@ export default function ProductDetail() {
 
               <div className="grid grid-cols-2 gap-y-3 text-sm">
                 <div className="text-[#867670]">Material</div>
-                <div className="text-[#211918]">{product.details.fabric}</div>
+                <div className="text-[#211918]">{product.fabric || "-"}</div>
 
                 <div className="text-[#867670]">Siluet</div>
-                <div className="text-[#211918]">{product.details.fit}</div>
+                <div className="text-[#211918]">{product.fit || "-"}</div>
 
                 <div className="text-[#867670]">Perawatan</div>
-                <div className="text-[#211918]">{product.details.care}</div>
+                <div className="text-[#211918]">{product.care || "-"}</div>
 
                 <div className="text-[#867670]">Asal</div>
-                <div className="text-[#211918]">{product.details.origin}</div>
+                <div className="text-[#211918]">{product.origin || "-"}</div>
               </div>
             </div>
 
